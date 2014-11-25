@@ -1,0 +1,72 @@
+Structure
+---------
+
+{
+	"name" : $string,
+	"id" : $string,
+	"description" : $text,
+	"classes" : $multiselect,
+	"authors" : $multiselect,
+	"privacy" : $bool,
+	"running" : $bool,
+	"surveys" : {
+		"id" : $string",
+		"title" : $string,
+		"description" : $text,
+		"intro" : $text, //not implemented
+		"submit" : $text,
+		"anytime" : $bool,
+		"prompts" : {
+			"type" : $multiselect,
+			"id" : $string,
+			"label" : $string,
+			"unit" : $string, //not implemented
+			"text" : $text,
+			"skippable" : $bool,
+			"condition" : $string,
+			"properties" : {}
+		}
+	}
+}
+
+Properties
+----------
+
+{
+	"message" : {
+		"message" : "$string"
+	},
+	"audio" : {
+		"length" : $number
+	},
+	"video" : {
+		"length" : $number
+	},
+	"photo" : {
+		"resolution" : $integer
+	},
+	"multichoice": [{
+		"key" : $integer,
+		"label" : $string,
+		"value" : $number
+	}],
+	"single choice" : [{
+		"key" : $integer,
+		"label" : $string,
+		"value" : $number
+	}],
+	"number" : {
+		"min" : $number,
+		"max" : $number,
+		"default" : $number,
+		"whole number" : $bool
+	},
+	"text" : {
+		"min" : $integer,
+		"max" : $integer,
+		"default" : $string
+	},
+	"timestamp" : {}
+}
+
+

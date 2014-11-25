@@ -7,6 +7,6 @@ $(function(){
 		}, "text");
 	});
 
-	$(".panel-group").sortable({ handle: ".panel-heading" }).disableSelection();
+	$(".panel-group").sortable({ handle: ".panel-heading" })
 	$(".list-group").sortable()
 });

@@ -10,6 +10,10 @@
 	content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }
 
+.panel-group {
+   user-select: none;
+}
+
 textarea {
 	resize: none;
 }

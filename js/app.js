@@ -7,6 +7,6 @@ $(function(){
 		}, "text");
 	});
 
-	$(".panel-group").sortable();
-    $(".panel-group").disableSelection();
+	$(".panel-group,.list-group").sortable();
+    $(".panel-group,.list-group").disableSelection();
 });

@@ -69,4 +69,8 @@ Properties
 	"timestamp" : {}
 }
 
+Notes
+-----
+
+Autogenerate keys, ids.
 

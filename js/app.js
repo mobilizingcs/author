@@ -37,7 +37,7 @@ $(function(){
 			var a = $($.parseHTML('<a role="button" class="list-group-item" href="#"> _blank <span class="badge">' + prompt_type + '</span></a>'))
 			return a.popover({
 				html: true,
-				trigger: "hover",
+				//trigger: "hover",
 				title : prompt_type + " prompt",
 				content: popover_content(prompt_type)
 			}).click(function(e){
@@ -47,6 +47,16 @@ $(function(){
 	}
 
 	function popover_content(prompt_type){
-		return $("#prompttemplate").children("form").clone();
+		var el = $("#prompttemplate").children().clone();
+		el.find(".choice_values").tagit()
+		return el;
 	}
 });
+
+$(document).keydown(function(e){
+	//escape button
+    if(e.which == 27){
+        $(".list-group-item").popover('hide');
+    }
+});
+

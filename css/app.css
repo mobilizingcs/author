@@ -21,3 +21,7 @@ textarea {
 .glyphicon-trash{
 	font-size: 2em;
 }
+
+.prompt_field_list{
+	width: 250px;
+}

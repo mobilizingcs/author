@@ -17,3 +17,7 @@
 textarea {
 	resize: none;
 }
+
+.glyphicon-trash{
+	font-size: 2em;
+}

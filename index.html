@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Campaign Survey Editor</title>
+	<title>Survey Editor</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
@@ -28,109 +28,93 @@
 </head>
 <body>
 	<div class="container">
-
 		<div class="row">
 			<div class="col-md-12 page-header">
-				<h1>Campaign Survey Editor</h1>
+				<h1>Survey Editor</h1>
 			</div>
 
 			<div class="col-md-4">
-				<div class="panel-group" id="surveygroup" role="tablist" aria-multiselectable="true">
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab">
-							<h4 class="panel-title">
-								<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#surveygroup" href="#collapseOne">
-									Survey ID: snack
-								</a>
-							</h4>
+				<div class="panel-group" id="surveygroup" role="tablist"></div>
 
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form role="form">
-									<div class="form-group has-success">
-										<label class="control-label">Title</label>
-										<input type="text" class="form-control" placeholder="My Survey">
-									</div>
-									<div class="form-group has-success">
-										<label class="control-label">Description</label>
-										<textarea rows="2" class="form-control" placeholder="This is my survey about food."></textarea>
-									</div>
+				<button type="button" id="new_survey_button" class="btn btn-primary">
+					<span class="glyphicon glyphicon-plus"></span> New Survey
+				</button>
 
-									<div class="form-group has-error">
-										<label class="control-label">Submit</label>
-										<input type="text" class="form-control" placeholder="Thank you for participating.">
-									</div>
-
-									<div class="checkbox">
-										<label class="control-label">
-											<input type="checkbox"> Any time
-										</label>
-									</div>
-
-									<div class="form-group">
-										<label>Prompts</label>
-										<div class="list-group">
-											<a class="list-group-item">NumberSnack <span class="badge">Number</span></a>
-											<a class="list-group-item">Where <span class="badge">Single Choice</span></a>
-											<a class="list-group-item">Why <span class="badge">Text</span></a>
-											<a class="list-group-item">Picture <span class="badge">Photo</span></a>
-										</div>
-									</div>
-								</form>
-
-								<button type="button" class="btn btn-danger" data-dismiss="modal">
-									<span class="glyphicon glyphicon-remove"></span> Delete Survey
-								</button>
-        						<button type="button" class="pull-right btn btn-primary">
-        							<span class="glyphicon glyphicon-plus"></span> Add Prompt
-        						</button>
-							</div>
-						</div>
-					</div>
-
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab">
-							<h4 class="panel-title">
-								<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#surveygroup" href="#collapseTwo">
-									Survey ID: sleep
-								</a>
-							</h4>
-
-						</div>
-						<div id="collapseTwo" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form role="form">
-									<div class="form-group">
-										<label>Name</label>
-										<input type="text" class="form-control" placeholder="Enter a name">
-									</div>
-									<div class="form-group">
-										<label>URN</label>
-										<input type="text" class="form-control" placeholder="urn:campaign:foo">
-									</div>
-
-									<div class="form-group">
-										<label>Description</label>
-										<input type="text" class="form-control" placeholder="enter description">
-									</div>
-
-									<div class="checkbox">
-										<label>
-											<input type="checkbox"> Any time
-										</label>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 
 			<div class="col-md-8">
 				<pre class="language-markup"><code data-src="xml/snack.xml"></code></pre>
 			</div>
 
+		</div>
+	</div>
+
+	<!-- templating stuff -->
+	<div id="surveytemplate" class="hidden">
+		<div class="survey_content panel panel-default">
+			<div class="panel-heading" role="tab">
+				<h4 class="panel-title">
+					<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#surveygroup">
+						Survey ID:
+					</a>
+				</h4>
+
+			</div>
+			<div class="panel-collapse collapse">
+				<div class="panel-body">
+					<form role="form">
+						<div class="form-group">
+							<label class="control-label">ID</label>
+							<input type="text" class="form-control" placeholder="Unique ID">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Title</label>
+							<input type="text" class="form-control" placeholder="My Survey">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Description</label>
+							<textarea rows="2" class="form-control" placeholder="This is my survey about food."></textarea>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label">Submit</label>
+							<input type="text" class="form-control" placeholder="Thank you for participating.">
+						</div>
+
+						<div class="checkbox">
+							<label class="control-label">
+								<input type="checkbox"> Any time
+							</label>
+						</div>
+
+						<div class="form-group">
+							<label>Prompts</label>
+							<div class="prompt_list list-group">
+								<a class="list-group-item">Welcome<span class="badge">message</span></a>
+							</div>
+						</div>
+
+						<button type="button" class="delete_survey_button btn btn-danger">
+							<span class="glyphicon glyphicon-remove"></span> Delete Survey
+						</button>
+
+						<div class="btn-group pull-right">
+							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+								<span class="glyphicon glyphicon-plus"></span> Add Prompt <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a data-type="number" href="#">Number</a></li>
+								<li><a data-type="text" href="#">Text</a></li>
+								<li><a data-type="photo" href="#">Photo</a></li>
+								<li><a data-type="singlechoice" href="#">Single-choice</a></li>
+								<li><a data-type="multichoice" href="#">Multi-choice</a></li>
+								<li class="divider"></li>
+								<li><a data-type="message" href="#">Message</a></li>
+							</ul>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

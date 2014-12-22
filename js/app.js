@@ -33,7 +33,20 @@ $(function(){
 
 	function add_prompt(prompt_type, el){
 		el.find(".prompt_list").append(function(){
-			return '<a class="list-group-item"> _blank <span class="badge">' + prompt_type + '</span></a>'
+			var a = $($.parseHTML('<a role="button" class="list-group-item" href="#"> _blank <span class="badge">' + prompt_type + '</span></a>'))
+			return a.popover({
+				html: true,
+				title : "foo",
+				trigger: "hover",
+				content: popover_content(prompt_type)
+			}).click(function(e){
+				e.preventDefault();
+				//this.focus()
+			})
 		})
+	}
+
+	function popover_content(prompt_type){
+		return("This is a " + prompt_type)
 	}
 });

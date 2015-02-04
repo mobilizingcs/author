@@ -1,0 +1,66 @@
+{
+	"fields" : {
+		"id" : {
+			"type" : "string",
+			"label" : "ID",
+			"placeholder" : "A unique ID"
+		},
+		"messageText" : {
+			"type" : "string",
+			"label" : "Message",
+			"placeholder" : "Some message to the user..."
+		},
+		"promptText" : {
+			"type" : "string",
+			"label" : "Question text",
+			"placeholder" : "The question to display in the app"
+		},
+		"label" : {
+			"type" : "string",
+			"label" : "Prompt label",
+			"placeholder" : "A short label"
+		},
+		"skippable" : {
+			"type" : "bool"
+		},
+		"min" : {
+			"type" : "number",
+			"label" : "Minimum value"
+		},
+		"max" : {
+			"type" : "number",
+			"label" : "Maximum value"
+		},
+		"whole" : {
+			"type" : "bool",
+			"label" : "Whole numbers only"
+		},
+		"resolution" : {
+			"type" : "number",
+			"label" : "Photo Resolution"
+		},
+		"defaultnumber" : {
+			"type" : "number",
+			"label" : "Default",
+			"placeholder" : "A default value"
+		},
+		"defaultstring" : {
+			"type" : "string",
+			"label" : "Default",
+			"placeholder" : "A default value"
+		},
+		"options" : {
+			"type" : "keyval",
+			"label" : "Option values"
+		}
+	},
+	"prompttypes" : {
+		"message" : ["id", "messageText"],
+		"timestamp" : ["id", "label", "promptText", "skippable"],
+		"photo" : ["id", "label", "promptText", "skippable", "resolution"],
+		"singlechoice" : ["id", "label", "promptText", "skippable", "options"],
+		"multichoice" : ["id", "label", "promptText", "skippable", "options"],
+		"number" : ["id", "label", "promptText", "skippable", "min", "max", "whole", "defaultnumber"],
+		"text" : ["id", "label", "promptText", "skippable", "min", "max", "defaultstring"]
+	}
+}

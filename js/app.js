@@ -1,5 +1,6 @@
 $(function(){
 	$.getJSON("logic.json", function(logic){
+		var oldpop;
 		$("[data-src]").each(function() {
 			var el = $(this);
 			var req = $.get(el.attr("data-src"), function(){
@@ -38,7 +39,7 @@ $(function(){
 				var a = $($.parseHTML('<a role="button" class="list-group-item" href="#"> _blank <span class="badge">' + prompt_type + '</span></a>'))
 				var pop =  a.popover({
 					html: true,
-					//trigger: "hover",
+					trigger: "hover",
 					title : prompt_type + " prompt",
 					content: popover_content(prompt_type)
 				}).click(function(e){

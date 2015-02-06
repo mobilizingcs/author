@@ -1,4 +1,6 @@
 $(function(){
+	var oldpop;
+
 	$.getJSON("logic.json", function(logic){
 		$("[data-src]").each(function() {
 			var el = $(this);
@@ -49,16 +51,26 @@ $(function(){
 
 		function add_prompt(prompt_type, el){
 			el.find(".prompt_list").append(function(){
-				var a = $($.parseHTML('<a role="button" class="list-group-item" href="#"> _blank <span class="badge">' + prompt_type + '</span></a>'))
-				var pop =  a.popover({
+				var a = $($.parseHTML('<a role="button" class="list-group-item prompt_link" href="#"> _blank <span class="badge">' + prompt_type + '</span></a>'))
+				a.popover({
 					html: true,
-					trigger: "hover",
+					trigger: "click",
 					title : prompt_type + " prompt",
 					content: popover_content(prompt_type, a)
 				}).click(function(e){
 					e.preventDefault();
-				})
-				return pop;
+				}).on("show.bs.popover", function(){
+					if(oldpop && oldpop != a){
+						oldpop.popover("hide");
+						oldpop = null;
+					}
+				}).hover(function(){
+					if(oldpop != a){
+						a.popover("show");
+						oldpop = a;
+					}
+				}, function(){})
+				return a;
 			})
 		}
 

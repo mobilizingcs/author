@@ -57,10 +57,10 @@
 	"prompttypes" : {
 		"message" : ["id", "messageText"],
 		"timestamp" : ["id", "label", "promptText", "skippable"],
-		"photo" : ["id", "label", "promptText", "skippable", "resolution"],
-		"singlechoice" : ["id", "label", "promptText", "skippable", "options"],
-		"multichoice" : ["id", "label", "promptText", "skippable", "options"],
-		"number" : ["id", "label", "promptText", "skippable", "min", "max", "whole", "defaultnumber"],
-		"text" : ["id", "label", "promptText", "skippable", "min", "max", "defaultstring"]
+		"photo" : ["id", "label", "promptText", "resolution", "skippable"],
+		"singlechoice" : ["id", "label", "promptText", "options", "skippable"],
+		"multichoice" : ["id", "label", "promptText", "options", "skippable"],
+		"number" : ["id", "label", "promptText", "min", "max", "defaultnumber", "whole", "skippable"],
+		"text" : ["id", "label", "promptText", "min", "max", "defaultstring", "skippable"]
 	}
 }

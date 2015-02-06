@@ -1,6 +1,5 @@
 $(function(){
 	$.getJSON("logic.json", function(logic){
-		var oldpop;
 		$("[data-src]").each(function() {
 			var el = $(this);
 			var req = $.get(el.attr("data-src"), function(){
@@ -9,7 +8,21 @@ $(function(){
 			}, "text");
 		});
 
-		$(".panel-group").sortable({ handle: ".panel-heading" })
+		$(".panel-group").sortable({
+			handle: ".panel-heading",
+		}).droppable({
+			connectToSortable: "#trash-can"
+		});
+
+		/* dont use this anymore */
+		$("#trash-can").droppable({
+			hoverClass: "trash-danger",
+			drop: function ( event, ui) {
+				var element = ui.draggable;
+				$(this).append(element);
+				$(ui.draggable).fadeOut(1000);
+			}
+		});
 
 		$("#new_survey_button").click(function(e){
 			e.preventDefault();
@@ -41,7 +54,7 @@ $(function(){
 					html: true,
 					trigger: "hover",
 					title : prompt_type + " prompt",
-					content: popover_content(prompt_type)
+					content: popover_content(prompt_type, a)
 				}).click(function(e){
 					e.preventDefault();
 				})
@@ -49,7 +62,7 @@ $(function(){
 			})
 		}
 
-		function popover_content(prompt_type){
+		function popover_content(prompt_type, a){
 			var templates = window.templates;
 			var fields = logic.prompttypes[prompt_type];
 			var el = $("#prompttemplate").children().clone();
@@ -65,6 +78,11 @@ $(function(){
 				form.append(output);
 			});
 
+			el.find(".delete_prompt_button").click(function(){
+				a.popover('hide');
+				a.remove();
+			});
+
 			el.find(".choice_values").tagit()
 			return el;
 		}
@@ -76,12 +94,12 @@ $(function(){
 
 $(document).keydown(function(e){
 	//escape button
-    if(e.which == 27){
-        $(".list-group-item").popover('hide');
-    }
+	if(e.which == 27){
+		$(".list-group-item").popover('hide');
+	}
 });
 
 function toTitleCase(str){
-    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 

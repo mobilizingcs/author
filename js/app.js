@@ -1,6 +1,60 @@
 $(function(){
-	var oldpop;
 
+	/* BackBone Models */
+	var Prompt = Backbone.Model.extend({
+		defaults : {
+			id : "",
+			prompttype: null
+		}
+	});
+
+	var PromptList = Backbone.Collection.extend({
+		model: Prompt
+	});
+
+	var Survey = Backbone.Model.extend({
+		defaults : {
+			id : "",
+			title : "",
+			description : "",
+			submit : "",
+			anytime : false,
+			prompts : new PromptList()
+		}
+	});
+
+	var SurveyList = Backbone.Collection.extend({
+		model: Survey
+	})
+
+	/* BackBone Views */
+	var Field = Backbone.View.extend({
+		initialize : function(){
+			this.render();
+		},
+		render : function() {
+			this.$el.html(this.template(this.model.attributes));
+		}
+	});
+
+	var StringField = Field.extend({
+		template : _.template('<div class="form-group"><label>{{label}}</label><input class="form-control" placeholder="{{placeholder}}"> <%=value%> </div>')
+	})
+
+
+	/*
+	new StringField({
+		label : "Message",
+		placeholder : "Some message to the user..."
+	})
+	*/
+
+
+
+
+
+
+	var oldpop;
 	$.getJSON("logic.json", function(logic){
 		$("[data-src]").each(function() {
 			var el = $(this);

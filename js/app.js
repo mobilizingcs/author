@@ -1,59 +1,5 @@
 $(function(){
 
-	/* BackBone Models */
-	var Prompt = Backbone.Model.extend({
-		defaults : {
-			id : "",
-			prompttype: null
-		}
-	});
-
-	var PromptList = Backbone.Collection.extend({
-		model: Prompt
-	});
-
-	var Survey = Backbone.Model.extend({
-		defaults : {
-			id : "",
-			title : "",
-			description : "",
-			submit : "",
-			anytime : false,
-			prompts : new PromptList()
-		}
-	});
-
-	var SurveyList = Backbone.Collection.extend({
-		model: Survey
-	})
-
-	/* BackBone Views */
-	var MessagePromptView = Backbone.View.extend({
-		initialize : function(){
-			this.render();
-		},
-		render : function() {
-			this.$el.html(this.template(this.model.attributes));
-		}
-	});
-
-	var StringField = Field.extend({
-		template : _.template('<div class="form-group"><label>{{label}}</label><input class="form-control" placeholder="{{placeholder}}"> <%=value%> </div>')
-	})
-
-
-	/*
-	new StringField({
-		label : "Message",
-		placeholder : "Some message to the user..."
-	})
-	*/
-
-
-
-
-
-
 	var oldpop;
 	$.getJSON("logic.json", function(logic){
 		$("[data-src]").each(function() {
@@ -105,7 +51,7 @@ $(function(){
 
 		function add_prompt(prompt_type, el){
 			el.find(".prompt_list").append(function(){
-				var a = $($.parseHTML('<a role="button" class="list-group-item prompt_link" href="#"> _blank <span class="badge">' + prompt_type + '</span></a>'))
+				var a = $($.parseHTML('<a role="button" class="list-group-item prompt_link" href="#"> <span class="prompt_id_text">_blank</span> <span class="badge">' + prompt_type + '</span></a>'))
 				a.popover({
 					html: true,
 					trigger: "click",
@@ -141,7 +87,15 @@ $(function(){
 					label : field.label || toTitleCase(fieldname),
 					placeholder : field.placeholder || "Please enter " + fieldname.toLowerCase()
 				});
-				form.append(output);
+				var input = form.append(output).find("input");
+
+				//update view
+				if(fieldname == "id"){
+					var prompttext = a.find(".prompt_id_text");
+					input.on("keyup", function(){
+						prompttext.text(input.val() || "_blank")
+					})
+				}
 			});
 
 			el.find(".delete_prompt_button").click(function(){
@@ -149,7 +103,7 @@ $(function(){
 				a.remove();
 			});
 
-			el.find(".choice_values").tagit()
+			el.find(".choice_values").tagit();
 			return el;
 		}
 

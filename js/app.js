@@ -28,7 +28,7 @@ $(function(){
 	})
 
 	/* BackBone Views */
-	var Field = Backbone.View.extend({
+	var MessagePromptView = Backbone.View.extend({
 		initialize : function(){
 			this.render();
 		},

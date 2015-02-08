@@ -36,7 +36,9 @@ $.getJSON("logic.json", function(logic){
 
 		//update view
 		el.find(".survey_id_field").on("keyup", function(){
-			el.find("h4.panel-title a").text("Survey: " + $(this).val())
+			var urn = urnify($(this).val())
+			$(this).val(urn)
+			el.find("h4.panel-title a").text("Survey: " + urn)
 		})
 
 		//update xml
@@ -96,7 +98,9 @@ $.getJSON("logic.json", function(logic){
 			if(fieldname == "id"){
 				var prompttext = a.find(".prompt_id_text");
 				input.on("keyup", function(){
-					prompttext.text(input.val() || "[new]")
+					var urn = urnify($(this).val())
+					$(this).val(urn)
+					prompttext.text(urn|| "[new]")
 				})
 			}
 		});
@@ -219,4 +223,8 @@ $(document).keydown(function(e){
 
 function toTitleCase(str){
 	return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
+function urnify(str){
+	return str.replace(/[^a-z0-9]/gi,'').substr(0, 20)
 }

@@ -46,14 +46,12 @@
 		"defaultnumber" : {
 			"type" : "number",
 			"label" : "Default",
-			"placeholder" : "A default value",
-			"property" : true
+			"placeholder" : "A default value"
 		},
 		"defaultstring" : {
 			"type" : "string",
 			"label" : "Default",
-			"placeholder" : "A default value",
-			"property" : true
+			"placeholder" : "A default value"
 		},
 		"options" : {
 			"type" : "keyval",
@@ -67,7 +65,7 @@
 		"photo" : ["id", "displayLabel", "promptText", "skippable"],
 		"singlechoice" : ["id", "displayLabel", "promptText", "options", "skippable"],
 		"multichoice" : ["id", "displayLabel", "promptText", "options", "skippable"],
-		"number" : ["id", "displayLabel", "promptText", "min", "max", "defaultnumber", "wholeNumber", "skippable"],
-		"text" : ["id", "displayLabel", "promptText", "min", "max", "defaultstring", "skippable"]
+		"number" : ["id", "displayLabel", "promptText", "min", "max", "wholeNumber", "skippable"],
+		"text" : ["id", "displayLabel", "promptText", "min", "max", "skippable"]
 	}
 }

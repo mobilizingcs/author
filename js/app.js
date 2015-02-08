@@ -18,7 +18,9 @@ $(function(){
 			var el = $("#surveytemplate .survey_content").clone();
 			var id = el.children(".panel-collapse").uniqueId()[0].id;
 			el.find("h4.panel-title a").attr("href", "#" + id);
-			el.find(".list-group").sortable();
+			el.find(".list-group").sortable({
+				update: writexml
+			});
 			el.find(".dropdown-menu a").click(function(e){
 				e.preventDefault();
 				var prompt_type = $(this).data("type");
@@ -155,10 +157,15 @@ $(function(){
 						var name = field.data("field")
 						var value = getFieldValue(field)
 
-						if(!logic.fields[name].property){
-							$("<"+name+"/>").text(value).appendTo(prompt)												
+						if(logic.fields[name].property){
+																			
 						} else {
+							$("<"+name+"/>").text(value).appendTo(prompt)
+						}
 
+						//hack for dumb ohmage requirements
+						if(name == "skippable" && value == true){
+							$("<skipLabel/>").text("Skip").appendTo(prompt)
 						}
 					})
 				})
@@ -168,7 +175,8 @@ $(function(){
 
 		//debug
 		function writexml(){
-			$("code").text(vkbeautify.xml(form2xml().html()))
+			var xmltext = '<?xml version="1.0" encoding="UTF-8"?>\n' + form2xml().html()
+			$("code").text(vkbeautify.xml(xmltext))
 		}
 
 		//init page

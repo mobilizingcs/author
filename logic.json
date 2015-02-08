@@ -6,12 +6,12 @@
 			"placeholder" : "A unique ID"
 		},
 		"messageText" : {
-			"type" : "string",
+			"type" : "text",
 			"label" : "Message",
 			"placeholder" : "Some message to the user..."
 		},
 		"promptText" : {
-			"type" : "string",
+			"type" : "text",
 			"label" : "Question text",
 			"placeholder" : "The question to display in the app"
 		},

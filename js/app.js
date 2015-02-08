@@ -47,11 +47,18 @@ $(function(){
 			$("#surveygroup").append(el);
 			$("#surveygroup").find(".collapse").collapse('hide');
 			el.find(".collapse").collapse('show');
+
+			//update view
+			el.find(".survey_id_field").on("keyup", function(){
+				el.find("h4.panel-title a").text("Survey: " + $(this).val())
+			})
 		});
 
 		function add_prompt(prompt_type, el){
 			el.find(".prompt_list").append(function(){
-				var a = $($.parseHTML('<a role="button" class="list-group-item prompt_link" href="#"> <span class="prompt_id_text">_blank</span> <span class="badge">' + prompt_type + '</span></a>'))
+				var a = $(Mustache.render(templates.promptlink, {
+					prompt_type:prompt_type
+				}));
 				a.popover({
 					html: true,
 					trigger: "click",
@@ -93,7 +100,7 @@ $(function(){
 				if(fieldname == "id"){
 					var prompttext = a.find(".prompt_id_text");
 					input.on("keyup", function(){
-						prompttext.text(input.val() || "_blank")
+						prompttext.text(input.val() || "[new]")
 					})
 				}
 			});

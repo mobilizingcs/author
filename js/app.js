@@ -1,24 +1,17 @@
 $(function(){
 
-	var oldpop;
 	$.getJSON("logic.json", function(logic){
 
+		//globals
+		var oldpop;
+
+		//survey sortable
 		$(".panel-group").sortable({
 			handle: ".panel-heading",
-		}).droppable({
-			connectToSortable: "#trash-can"
+			update: writexml
 		});
 
-		/* dont use this anymore */
-		$("#trash-can").droppable({
-			hoverClass: "trash-danger",
-			drop: function ( event, ui) {
-				var element = ui.draggable;
-				$(this).append(element);
-				$(ui.draggable).fadeOut(1000);
-			}
-		});
-
+		//create new surveys
 		$("#new_survey_button").click(function(e){
 			e.preventDefault();
 			this.blur();
@@ -48,9 +41,10 @@ $(function(){
 
 			//update xml
 			el.find("input,textarea").change(writexml).keyup(writexml);
-
+			writexml();
 		});
 
+		//create new prompt
 		function add_prompt(prompt_type, el){
 			el.find(".survey_prompt_list").append(function(){
 				var a = $(Mustache.render(templates.promptlink, {
@@ -78,8 +72,10 @@ $(function(){
 				}, function(){})
 				return a;
 			})
+			writexml();
 		}
 
+		//initiate the prompt popover
 		function popover_content(prompt_type, a){
 			var templates = window.templates;
 			var fields = logic.prompttypes[prompt_type];
@@ -140,9 +136,17 @@ $(function(){
 				/* find prompts */
 				var contents = $("<contentList/>").appendTo(survey)
 				form.find(".survey_prompt_list .prompt_link").each(function(){
-					var prompt = $("<prompt/>").appendTo(contents)
+
 					var prompt_link = $(this);
-					var prompt_type = prompt_link.data("prompt_type")
+					var prompt_type = prompt_link.data("prompt_type");
+
+					if(prompt_type == "message"){
+						var prompt = $("<message/>").appendTo(contents)
+					} else {
+						var prompt = $("<prompt/>").appendTo(contents)
+						$("<promptType>").text(prompt_link.data("prompt_type")).appendTo(prompt)
+					}
+				
 					var popover = prompt_link.data("bs.popover").$tip;
 					var fields = $(popover).find(".prompt_field")
 
@@ -166,6 +170,9 @@ $(function(){
 		function writexml(){
 			$("code").text(vkbeautify.xml(form2xml().html()))
 		}
+
+		//init page
+		writexml();
 
 	}).fail(function(){
 		alert("Downloading logic.json failed.")

@@ -15,7 +15,7 @@
 			"label" : "Question text",
 			"placeholder" : "The question to display in the app"
 		},
-		"label" : {
+		"displayLabel" : {
 			"type" : "string",
 			"label" : "Prompt label",
 			"placeholder" : "A short label"
@@ -63,11 +63,11 @@
 	},
 	"prompttypes" : {
 		"message" : ["id", "messageText"],
-		"timestamp" : ["id", "label", "promptText", "skippable"],
-		"photo" : ["id", "label", "promptText", "maxDimension", "skippable"],
-		"singlechoice" : ["id", "label", "promptText", "options", "skippable"],
-		"multichoice" : ["id", "label", "promptText", "options", "skippable"],
-		"number" : ["id", "label", "promptText", "min", "max", "defaultnumber", "wholeNumber", "skippable"],
-		"text" : ["id", "label", "promptText", "min", "max", "defaultstring", "skippable"]
+		"timestamp" : ["id", "displayLabel", "promptText", "skippable"],
+		"photo" : ["id", "displayLabel", "promptText", "skippable"],
+		"singlechoice" : ["id", "displayLabel", "promptText", "options", "skippable"],
+		"multichoice" : ["id", "displayLabel", "promptText", "options", "skippable"],
+		"number" : ["id", "displayLabel", "promptText", "min", "max", "defaultnumber", "wholeNumber", "skippable"],
+		"text" : ["id", "displayLabel", "promptText", "min", "max", "defaultstring", "skippable"]
 	}
 }

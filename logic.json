@@ -25,42 +25,49 @@
 		},
 		"min" : {
 			"type" : "number",
-			"label" : "Minimum value"
+			"label" : "Minimum value",
+			"property" : true
 		},
 		"max" : {
 			"type" : "number",
-			"label" : "Maximum value"
+			"label" : "Maximum value",
+			"property" : true
 		},
-		"whole" : {
+		"wholeNumber" : {
 			"type" : "bool",
-			"label" : "Whole numbers only"
+			"label" : "Whole numbers only",
+			"property" : true
 		},
-		"resolution" : {
+		"maxDimension" : {
 			"type" : "number",
-			"label" : "Photo Resolution"
+			"label" : "Max dimension",
+			"property" : true
 		},
 		"defaultnumber" : {
 			"type" : "number",
 			"label" : "Default",
-			"placeholder" : "A default value"
+			"placeholder" : "A default value",
+			"property" : true
 		},
 		"defaultstring" : {
 			"type" : "string",
 			"label" : "Default",
-			"placeholder" : "A default value"
+			"placeholder" : "A default value",
+			"property" : true
 		},
 		"options" : {
 			"type" : "keyval",
-			"label" : "Option values"
+			"label" : "Option values",
+			"property" : true
 		}
 	},
 	"prompttypes" : {
 		"message" : ["id", "messageText"],
 		"timestamp" : ["id", "label", "promptText", "skippable"],
-		"photo" : ["id", "label", "promptText", "resolution", "skippable"],
+		"photo" : ["id", "label", "promptText", "maxDimension", "skippable"],
 		"singlechoice" : ["id", "label", "promptText", "options", "skippable"],
 		"multichoice" : ["id", "label", "promptText", "options", "skippable"],
-		"number" : ["id", "label", "promptText", "min", "max", "defaultnumber", "whole", "skippable"],
+		"number" : ["id", "label", "promptText", "min", "max", "defaultnumber", "wholeNumber", "skippable"],
 		"text" : ["id", "label", "promptText", "min", "max", "defaultstring", "skippable"]
 	}
 }

@@ -2,13 +2,6 @@ $(function(){
 
 	var oldpop;
 	$.getJSON("logic.json", function(logic){
-		$("[data-src]").each(function() {
-			var el = $(this);
-			var req = $.get(el.attr("data-src"), function(){
-				el.text(req.responseText);
-				Prism.highlightAll();
-			}, "text");
-		});
 
 		$(".panel-group").sortable({
 			handle: ".panel-heading",
@@ -52,6 +45,10 @@ $(function(){
 			el.find(".survey_id_field").on("keyup", function(){
 				el.find("h4.panel-title a").text("Survey: " + $(this).val())
 			})
+
+			//update xml
+			el.find("input,textarea").change(writexml).keyup(writexml);
+
 		});
 
 		function add_prompt(prompt_type, el){
@@ -113,14 +110,76 @@ $(function(){
 				a.remove();
 			});
 
-			el.find(".choice_values").tagit();
+			el.find(".choice_values").tagit().on('afterTagAdded', writexml).on('afterTagRemoved', writexml);
+
+			//doesn't work for tagit but ok
+			el.find("input,textarea").change(writexml).keyup(writexml);
+
 			return el;
+		}
+
+		/* Convert Form to XML. Should rewrite this in proper MVC */
+		function form2xml(){
+			var xml = $("<root/>") 
+			var campaign = $("<campaign/>").appendTo(xml);
+			var surveys = $("<surveys/>").appendTo(campaign);
+
+			$("#surveygroup .survey_form").each(function(){
+
+				/* create node */
+				var form = $(this);
+				var survey = $("<survey/>").appendTo(surveys);
+
+				/* survey fields */
+				$("<id/>").text(form.find(".survey_id_field").val()).appendTo(survey);
+				$("<title/>").text(form.find(".survey_title_field").val()).appendTo(survey);
+				$("<description/>").text(form.find(".survey_description_field").val()).appendTo(survey);
+				$("<submitText/>").text(form.find(".survey_submit_field").val()).appendTo(survey);
+				$("<anytime/>").text(form.find(".survey_anytime_field").is(":checked")).appendTo(survey);
+
+				/* find prompts */
+				var contents = $("<contentList/>").appendTo(survey)
+				form.find(".survey_prompt_list .prompt_link").each(function(){
+					var prompt = $("<prompt/>").appendTo(contents)
+					var prompt_link = $(this);
+					var prompt_type = prompt_link.data("prompt_type")
+					var popover = prompt_link.data("bs.popover").$tip;
+					var fields = $(popover).find(".prompt_field")
+
+					fields.each(function(){
+						var field = $(this);
+						var name = field.data("field")
+						var value = getFieldValue(field)
+
+						if(!logic.fields[name].property){
+							$("<"+name+"/>").text(value).appendTo(prompt)												
+						} else {
+
+						}
+					})
+				})
+			});
+			return xml
+		}
+
+		//debug
+		function writexml(){
+			$("code").text(vkbeautify.xml(form2xml().html()))
 		}
 
 	}).fail(function(){
 		alert("Downloading logic.json failed.")
 	});
 });
+
+function getFieldValue(el){
+	if(el.is("input[type=checkbox]")){
+		return el.is(':checked')
+	} else if(el.is("ol")){
+		return "Not implemented yet..."
+	}
+	return el.val();
+}
 
 $(document).keydown(function(e){
 	//escape button
@@ -131,46 +190,4 @@ $(document).keydown(function(e){
 
 function toTitleCase(str){
 	return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-}
-
-/* Convert Form to XML. Should rewrite this in proper MVC */
-function form2xml(){
-	var surveys = $("#surveygroup .survey_form");
-	surveys.each(function(){
-
-		/* get form */
-		var form = $(this);
-
-		/* survey fields */
-		var survey_id = form.find(".survey_id_field").val()
-		var survey_title = form.find(".survey_title_field").val()
-		var survey_description = form.find(".survey_description_field").val()
-		var survey_submit = form.find(".survey_submit_field").val()
-		var survey_anytime = form.find(".survey_anytime_field").val()
-
-		/* find prompts */
-		var survey_prompt_list = form.find(".survey_prompt_list .prompt_link")
-		survey_prompt_list.each(function(){
-			var prompt_link = $(this);
-			var prompt_type = prompt_link.data("prompt_type")
-			var popover = prompt_link.data("bs.popover").$tip;
-			var fields = $(popover).find(".prompt_field")
-			console.log("Prompt: " + prompt_type)
-			fields.each(function(){
-				var field = $(this);
-				var name = field.data("field")
-				var value = getFieldValue(field)
-				console.log(name + " = " + value)
-			})
-		})
-	});
-}
-
-function getFieldValue(el){
-	if(el.is("input[type=checkbox]")){
-		return el.is(':checked')
-	} else if(el.is("ol")){
-		return "Not implemented yet..."
-	}
-	return el.val();
 }

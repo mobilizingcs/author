@@ -2,11 +2,24 @@ $.getJSON("logic.json", function(logic){
 
 	//globals
 	var oldpop;
+	function closepop(){
+		if(oldpop){
+			oldpop.popover('hide');
+		}
+	}
+
+	//escape button
+	$(document).keydown(function(e){
+		if(e.which == 27){
+			closepop();
+		}
+	});
 
 	//survey sortable
 	$(".panel-group").sortable({
 		handle: ".panel-heading",
-		update: writexml
+		update: writexml,
+		start: closepop
 	});
 
 	//create new surveys
@@ -17,17 +30,26 @@ $.getJSON("logic.json", function(logic){
 		var id = el.children(".panel-collapse").uniqueId()[0].id;
 		el.find("h4.panel-title a").attr("href", "#" + id);
 		el.find(".list-group").sortable({
-			update: writexml
+			update: writexml,
+			start: closepop
 		});
 		el.find(".dropdown-menu a").click(function(e){
 			e.preventDefault();
 			var prompt_type = $(this).data("type");
 			add_prompt(prompt_type, el)
 		});
-		el.find(".delete_survey_button").click(function(e){
+		el.find(".remove_survey_button").click(function(e){
 			e.preventDefault();
-			el.hide('slow', function(){
-				el.remove()
+			bootbox.confirm({
+				title : "Delete Survey",
+				message : "Do you want to remove this survey from the campaign?",
+				callback : function(result){
+					if(!result) return;
+					el.hide(function(){
+						el.remove()
+						writexml();
+					})
+				}
 			});
 		});
 		$("#surveygroup").append(el);
@@ -50,28 +72,24 @@ $.getJSON("logic.json", function(logic){
 	function add_prompt(prompt_type, el){
 		el.find(".survey_prompt_list").append(function(){
 			var a = $(Mustache.render(templates.promptlink, {
-				prompt_type:prompt_type
+				prompt_type : prompt_type,
+				icon : logic.icons[prompt_type]
 			})).data("prompt_type", prompt_type);
 			var content = popover_content(prompt_type, a);
 			a.popover({
 				html: true,
 				//placement: "top",
-				trigger: "click",
+				//trigger: "hover",
 				title : prompt_type + " prompt",
 				content: content
 			}).click(function(e){
 				e.preventDefault();
 			}).on("show.bs.popover", function(){
-				if(oldpop && oldpop != a){
-					oldpop.popover("hide");
-					oldpop = null;
-				}
-			}).hover(function(){
 				if(oldpop != a){
-					a.popover("show");
-					oldpop = a;
+					closepop();
 				}
-			}, function(){})
+				oldpop = a;
+			})
 			return a;
 		})
 		writexml();
@@ -94,23 +112,40 @@ $.getJSON("logic.json", function(logic){
 			});
 			var input = form.append(output).find("input");
 
+			//force number fields to be numbers.
+			if(field.type == "number"){
+				input.on("blur", function(){
+					$(this).val($(this).val());
+				})
+			}
+
 			//update view
 			if(fieldname == "id"){
 				var prompttext = a.find(".prompt_id_text");
 				input.on("keyup", function(){
 					var urn = urnify($(this).val())
 					$(this).val(urn)
-					prompttext.text(urn|| "[new]")
+					prompttext.text(urn|| "___")
 				})
 			}
 		});
 
-		el.find(".delete_prompt_button").click(function(){
+		a.find(".remove_prompt_button").click(function(e){
+			e.preventDefault()
+			e.stopPropagation();
 			a.popover('hide');
-			a.remove();
+			a.hide(function(){
+				a.popover('destroy');
+				a.remove();
+				writexml();
+			})
 		});
 
-		el.find(".choice_values").tagit().on('afterTagAdded', writexml).on('afterTagRemoved', writexml);
+		el.find(".choice_values").tagit({
+			afterTagAdded : writexml,
+			afterTagRemoved : writexml
+		})
+
 		el.find("input,textarea").change(writexml).keyup(writexml);
 
 		return el;
@@ -118,7 +153,7 @@ $.getJSON("logic.json", function(logic){
 
 	/* Convert Form to XML. Should rewrite this in proper MVC */
 	function form2xml(){
-		var xml = $("<root/>") 
+		var xml = $("<root/>")
 		var campaign = $("<campaign/>").appendTo(xml);
 		var surveys = $("<surveys/>").appendTo(campaign);
 
@@ -148,7 +183,7 @@ $.getJSON("logic.json", function(logic){
 					var prompt = $("<prompt/>").appendTo(contents)
 					$("<promptType>").text(prompt_link.data("prompt_type")).appendTo(prompt)
 				}
-			
+
 				var popover = prompt_link.data("bs.popover").$tip;
 				var fields = $(popover).find(".prompt_field")
 				var properties = {};
@@ -156,7 +191,7 @@ $.getJSON("logic.json", function(logic){
 				fields.each(function(){
 					var field = $(this);
 					var name = field.data("field")
-					var value = getFieldValue(field)
+					var value = field.is("input[type=checkbox]") ? field.is(':checked') : field.val();
 
 					//some fields have to be put in the xml as 'properties'
 					if(logic.fields[name].property){
@@ -167,7 +202,7 @@ $.getJSON("logic.json", function(logic){
 							});
 						} else {
 							properties[name] = value;
-						}												
+						}
 					} else {
 						$("<"+name+"/>").text(value).appendTo(prompt)
 					}
@@ -186,16 +221,23 @@ $.getJSON("logic.json", function(logic){
 						$("<key/>").text(key).appendTo(prop)
 						$("<label/>").text(val).appendTo(prop)
 					})
-				}				
+				}
 			})
 		});
 		return xml
 	}
 
-	//debug
 	function writexml(){
 		var xmltext = '<?xml version="1.0" encoding="UTF-8"?>\n' + form2xml().html()
 		$("code").text(vkbeautify.xml(xmltext))
+	}
+
+	function toTitleCase(str){
+		return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	}
+
+	function urnify(str){
+		return str.replace(/[^a-z0-9]/gi,'').substr(0, 20)
 	}
 
 	//init page
@@ -204,27 +246,3 @@ $.getJSON("logic.json", function(logic){
 }).fail(function(){
 	alert("Downloading logic.json failed.")
 });
-
-function getFieldValue(el){
-	if(el.is("input[type=checkbox]")){
-		return el.is(':checked')
-	} else if(el.is("ol")){
-		return "Not implemented yet..."
-	}
-	return el.val();
-}
-
-$(document).keydown(function(e){
-	//escape button
-	if(e.which == 27){
-		$(".list-group-item").popover('hide');
-	}
-});
-
-function toTitleCase(str){
-	return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-}
-
-function urnify(str){
-	return str.replace(/[^a-z0-9]/gi,'').substr(0, 20)
-}

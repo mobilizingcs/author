@@ -67,5 +67,14 @@
 		"multichoice" : ["id", "displayLabel", "promptText", "options", "skippable"],
 		"number" : ["id", "displayLabel", "promptText", "min", "max", "wholeNumber", "skippable"],
 		"text" : ["id", "displayLabel", "promptText", "min", "max", "skippable"]
+	},
+	"icons" : {
+		"message" : "info-sign",
+		"timestamp" : "time",
+		"photo" : "picture",
+		"singlechoice" : "menu-hamburger",
+		"multichoice" : "th",
+		"number" : "usd",
+		"text" : "text-size"
 	}
 }

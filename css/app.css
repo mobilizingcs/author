@@ -2,8 +2,9 @@
 	/* symbol for "opening" panels */
 	font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
 	content: "\e114";    /* adjust as needed, taken from bootstrap.css */
-	float: right;        /* adjust as needed */
+	float: left;        /* adjust as needed */
 	color: grey;         /* adjust as needed */
+	padding-right: 10px;
 }
 .panel-heading .accordion-toggle.collapsed:after {
 	/* symbol for "collapsed" panels */
@@ -27,5 +28,17 @@ textarea {
 }
 
 body {
-	padding-bottom: 25px;
+	padding-bottom: 250px;
+}
+
+.remove_prompt_button:hover, .remove_survey_button:hover{
+	color: red;
+}
+
+.ui-helper-hidden-accessible {
+	display:none;
+}
+
+.prompt-icon{
+	padding-right: 10px;
 }

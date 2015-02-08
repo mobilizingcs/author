@@ -19,7 +19,9 @@
 
 
 	<script src="js/beautify.js"></script>
-	
+	<script src="js/bootbox.min.js"></script>
+
+
 	<!-- tagit plugin -->
 	<!-- <link href="css/jquery.tagit.css" rel="stylesheet"> -->
 	<script src="js/tag-it.min.js"></script>
@@ -45,8 +47,8 @@
 
 				</div>
 
-				<button type="button" id="new_survey_button" class="btn btn-primary">
-					<span class="glyphicon glyphicon-plus"></span> New Survey
+				<button type="button" id="new_survey_button" class="btn btn-success">
+					<span class="glyphicon glyphicon-plus"></span> Add New Survey
 				</button>
 
 				<!-- <button id="trash-can" class="btn pull-right">Trash can</ul> -->
@@ -64,11 +66,7 @@
 
 	<div id="prompttemplate" class="hidden">
 		<div class="prompt_field_list">
-			<form role="form">
-			</form>
-			<button type="button" class="delete_prompt_button btn btn-danger">
-				<span class="glyphicon glyphicon-remove"></span> Delete Prompt
-			</button>
+			<form role="form"></form>
 		</div>
 	</div>
 
@@ -77,6 +75,7 @@
 			<div class="panel-heading" role="tab">
 				<h4 class="panel-title">
 					<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#surveygroup">Survey: ___ </a>
+					<span class="remove_survey_button pull-right glyphicon glyphicon-remove"></span>
 				</h4>
 
 			</div>
@@ -114,22 +113,19 @@
 							</div>
 						</div>
 
-						<button type="button" class="delete_survey_button btn btn-danger">
-							<span class="glyphicon glyphicon-remove"></span> Delete Survey
-						</button>
-
 						<div class="btn-group pull-right">
 							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 								<span class="glyphicon glyphicon-plus"></span> Add Prompt <span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu">
-								<li><a data-type="number" href="#">Number</a></li>
-								<li><a data-type="text" href="#">Text</a></li>
-								<li><a data-type="photo" href="#">Photo</a></li>
-								<li><a data-type="singlechoice" href="#">Single-choice</a></li>
-								<li><a data-type="multichoice" href="#">Multi-choice</a></li>
+								<li><a data-type="number" href="#"><span class="glyphicon glyphicon-usd"></span> Number</a></li>
+								<li><a data-type="text" href="#"><span class="glyphicon glyphicon-text-size"></span> Text</a></li>
+								<li><a data-type="photo" href="#"><span class="glyphicon glyphicon-picture"></span> Photo</a></li>
+								<li><a data-type="singlechoice" href="#"><span class="glyphicon glyphicon-menu-hamburger"></span> Single-choice</a></li>
+								<li><a data-type="multichoice" href="#"><span class="glyphicon glyphicon-th"></span> Multi-choice</a></li>
+								<li><a data-type="timestamp" href="#"><span class="glyphicon glyphicon-time"></span> Time</a></li>
 								<li class="divider"></li>
-								<li><a data-type="message" href="#">Message</a></li>
+								<li><a data-type="message" href="#"><span class="glyphicon glyphicon-info-sign"></span> Message</a></li>
 							</ul>
 						</div>
 					</form>

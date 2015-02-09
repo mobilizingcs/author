@@ -5,6 +5,7 @@ $.getJSON("logic.json", function(logic){
 	function closepop(){
 		if(oldpop){
 			oldpop.popover('hide');
+			oldpop = null;
 		}
 	}
 

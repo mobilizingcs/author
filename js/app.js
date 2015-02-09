@@ -2,6 +2,12 @@ $.getJSON("logic.json", function(logic){
 
 	//globals
 	var oldpop;
+	var parse = (function(parser, jQuery){
+		return function(str) {
+			return jQuery(parser.parseFromString(str, "text/xml").documentElement)
+		}
+	})(new DOMParser(), jQuery)
+
 	function closepop(){
 		if(oldpop){
 			oldpop.popover('hide');
@@ -161,14 +167,14 @@ $.getJSON("logic.json", function(logic){
 
 			/* create node */
 			var form = $(this);
-			var survey = $("<survey/>").appendTo(surveys);
+			var survey = parse("<survey/>").appendTo(surveys);
 
 			/* survey fields */
-			$("<id/>").text(form.find(".survey_id_field").val()).appendTo(survey);
-			$("<title/>").text(form.find(".survey_title_field").val()).appendTo(survey);
-			$("<description/>").text(form.find(".survey_description_field").val()).appendTo(survey);
-			$("<submitText/>").text(form.find(".survey_submit_field").val()).appendTo(survey);
-			$("<anytime/>").text(form.find(".survey_anytime_field").is(":checked")).appendTo(survey);
+			parse("<id/>").text(form.find(".survey_id_field").val()).appendTo(survey);
+			parse("<title/>").text(form.find(".survey_title_field").val()).appendTo(survey);
+			parse("<description/>").text(form.find(".survey_description_field").val()).appendTo(survey);
+			parse("<submitText/>").text(form.find(".survey_submit_field").val()).appendTo(survey);
+			parse("<anytime/>").text(form.find(".survey_anytime_field").is(":checked")).appendTo(survey);
 
 			/* find prompts */
 			var contents = $("<contentList/>").appendTo(survey)
@@ -178,10 +184,10 @@ $.getJSON("logic.json", function(logic){
 				var prompt_type = prompt_link.data("prompt_type");
 
 				if(prompt_type == "message"){
-					var prompt = $("<message/>").appendTo(contents)
+					var prompt = parse("<message/>").appendTo(contents)
 				} else {
 					var prompt = $("<prompt/>").appendTo(contents)
-					$("<promptType>").text(prompt_link.data("prompt_type")).appendTo(prompt)
+					parse("<promptType>").text(prompt_link.data("prompt_type")).appendTo(prompt)
 				}
 
 				var popover = prompt_link.data("bs.popover").$tip;
@@ -204,22 +210,22 @@ $.getJSON("logic.json", function(logic){
 							properties[name] = value;
 						}
 					} else {
-						$("<"+name+"/>").text(value).appendTo(prompt)
+						parse("<"+name+"/>").text(value).appendTo(prompt)
 					}
 
 					//ohmage apparently has no default for this
 					if(name == "skippable" && value == true){
-						$("<skipLabel/>").text("Skip").appendTo(prompt)
+						parse("<skipLabel/>").text("Skip").appendTo(prompt)
 					}
 				})
 
 				//append properties
 				if(Object.keys(properties).length){
-					var props = $("<properties>").appendTo(prompt)
+					var props = parse("<properties>").appendTo(prompt)
 					$.each(properties, function(key, val){
-						var prop = $("<property>").appendTo(props)
-						$("<key/>").text(key).appendTo(prop)
-						$("<label/>").text(val).appendTo(prop)
+						var prop = parse("<property>").appendTo(props)
+						parse("<key/>").text(key).appendTo(prop)
+						parse("<label/>").text(val).appendTo(prop)
 					})
 				}
 			})

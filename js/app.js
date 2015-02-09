@@ -190,7 +190,7 @@ $.getJSON("logic.json", function(logic){
 					var prompt = parse("<message/>").appendTo(contents)
 				} else {
 					var prompt = $("<prompt/>").appendTo(contents)
-					parse("<promptType>").text(prompt_link.data("prompt_type")).appendTo(prompt)
+					parse("<promptType/>").text(prompt_link.data("prompt_type")).appendTo(prompt)
 				}
 
 				var popover = prompt_link.data("bs.popover").$tip;
@@ -224,9 +224,9 @@ $.getJSON("logic.json", function(logic){
 
 				//append properties
 				if(Object.keys(properties).length){
-					var props = $("<properties>").appendTo(prompt)
+					var props = $("<properties/>").appendTo(prompt)
 					$.each(properties, function(key, val){
-						var prop = $("<property>").appendTo(props)
+						var prop = $("<property/>").appendTo(props)
 						$("<key/>").text(key).appendTo(prop)
 						$("<label/>").text(val).appendTo(prop)
 					})

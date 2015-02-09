@@ -221,11 +221,11 @@ $.getJSON("logic.json", function(logic){
 
 				//append properties
 				if(Object.keys(properties).length){
-					var props = parse("<properties>").appendTo(prompt)
+					var props = $("<properties>").appendTo(prompt)
 					$.each(properties, function(key, val){
-						var prop = parse("<property>").appendTo(props)
-						parse("<key/>").text(key).appendTo(prop)
-						parse("<label/>").text(val).appendTo(prop)
+						var prop = $("<property>").appendTo(props)
+						$("<key/>").text(key).appendTo(prop)
+						$("<label/>").text(val).appendTo(prop)
 					})
 				}
 			})

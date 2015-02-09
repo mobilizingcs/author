@@ -125,7 +125,7 @@ $.getJSON("logic.json", function(logic){
 				input.on("keyup", function(){
 					var urn = urnify($(this).val())
 					$(this).val(urn)
-					prompttext.text(urn|| "___")
+					prompttext.text(urn || "___")
 				})
 			}
 		});
@@ -133,7 +133,7 @@ $.getJSON("logic.json", function(logic){
 		a.find(".remove_prompt_button").click(function(e){
 			e.preventDefault()
 			e.stopPropagation();
-			a.popover('hide');
+			closepop();
 			a.hide(function(){
 				a.popover('destroy');
 				a.remove();

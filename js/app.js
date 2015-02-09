@@ -75,13 +75,12 @@ $.getJSON("logic.json", function(logic){
 				prompt_type : prompt_type,
 				icon : logic.icons[prompt_type]
 			})).data("prompt_type", prompt_type);
-			var content = popover_content(prompt_type, a);
 			a.popover({
 				html: true,
 				//placement: "top",
 				//trigger: "hover",
-				title : prompt_type + " prompt",
-				content: content
+				title : prompt_type + ' prompt', // <span class="close_popover_button pull-right glyphicon glyphicon-remove"></span>',
+				content: popover_content(prompt_type, a)
 			}).click(function(e){
 				e.preventDefault();
 			}).on("show.bs.popover", function(){

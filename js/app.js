@@ -2,12 +2,15 @@ $.getJSON("logic.json", function(logic){
 
 	//globals
 	var oldpop;
+
+	//XML parser for mixed case tag names (HTML only supports lowercase tags)
 	var parse = (function(parser, jQuery){
 		return function(str) {
 			return jQuery(parser.parseFromString(str, "text/xml").documentElement)
 		}
 	})(new DOMParser(), jQuery)
 
+	//Close the latest popover
 	function closepop(){
 		if(oldpop){
 			oldpop.popover('hide');

@@ -239,6 +239,14 @@ $.getJSON("logic.json", function(logic){
 	function writexml(){
 		var xmltext = vkbeautify.xml('<?xml version="1.0" encoding="UTF-8"?>\n' + form2xml().html());
 		$("code").text(xmltext)
+
+		/* to enable syntax highlighting */
+		if($("#syntax_highlight_button").is(":checked")){
+			$('pre').each(function(i, block) {
+				hljs.highlightBlock(block);
+			});
+		}
+
 		return xmltext;
 	}
 

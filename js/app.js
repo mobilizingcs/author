@@ -263,6 +263,8 @@ $.getJSON("logic.json", function(logic){
 		$(this).attr("href", "data:application/xml," + encodeURIComponent(writexml()))
 	})
 
+	$("#syntax_highlight_button").click(writexml)
+
 	//init page
 	writexml();
 

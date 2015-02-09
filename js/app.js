@@ -227,8 +227,9 @@ $.getJSON("logic.json", function(logic){
 	}
 
 	function writexml(){
-		var xmltext = '<?xml version="1.0" encoding="UTF-8"?>\n' + form2xml().html()
-		$("code").text(vkbeautify.xml(xmltext))
+		var xmltext = vkbeautify.xml('<?xml version="1.0" encoding="UTF-8"?>\n' + form2xml().html());
+		$("code").text(xmltext)
+		return xmltext;
 	}
 
 	function toTitleCase(str){
@@ -238,6 +239,11 @@ $.getJSON("logic.json", function(logic){
 	function urnify(str){
 		return str.replace(/[^a-z0-9]/gi,'').substr(0, 20)
 	}
+
+	$("#download_xml_button").click(function(e){
+		$(this).attr("download", "campaign.xml")
+		$(this).attr("href", "data:application/xml," + encodeURIComponent(writexml()))
+	})
 
 	//init page
 	writexml();

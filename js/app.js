@@ -180,7 +180,7 @@ $.getJSON("logic.json", function(logic){
 			parse("<anytime/>").text(form.find(".survey_anytime_field").is(":checked")).appendTo(survey);
 
 			/* find prompts */
-			var contents = $("<contentList/>").appendTo(survey)
+			var contents = parse("<contentList/>").appendTo(survey)
 			form.find(".survey_prompt_list .prompt_link").each(function(){
 
 				var prompt_link = $(this);

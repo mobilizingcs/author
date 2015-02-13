@@ -169,6 +169,7 @@ $.getJSON("logic.json", function(logic){
 		});
 
 		el.find(".choice_values").tagit({
+			allowSpaces : true,
 			afterTagAdded : writexml,
 			afterTagRemoved : writexml
 		})

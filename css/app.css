@@ -43,3 +43,15 @@ body {
 	padding-right: 10px;
 }
 
+.tagit-close{
+	font-size: 1.25em;
+	padding-left: 5px;
+	cursor: pointer;
+}
+
+.tagit-close:hover{
+	color: red;
+	text-decoration: none;
+}
+
+

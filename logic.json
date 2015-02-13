@@ -26,12 +26,14 @@
 		"min" : {
 			"type" : "number",
 			"label" : "Minimum value",
-			"property" : true
+			"property" : true,
+			"default" : 0
 		},
 		"max" : {
 			"type" : "number",
 			"label" : "Maximum value",
-			"property" : true
+			"property" : true,
+			"default" : 999
 		},
 		"wholeNumber" : {
 			"type" : "bool",

@@ -226,6 +226,9 @@ $.getJSON("logic.json", function(logic){
 					var name = field.data("field")
 					var value = field.is("input[type=checkbox]") ? field.is(':checked') : field.val();
 
+					//do not add empty fields into the XML
+					//if(value === "") return
+
 					//some fields have to be put in the xml as 'properties'
 					if(logic.fields[name].property){
 						if(field.is("ol")){

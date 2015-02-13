@@ -182,6 +182,12 @@ $.getJSON("logic.json", function(logic){
 	function form2xml(){
 		var xml = $("<root/>")
 		var campaign = $("<campaign/>").appendTo(xml);
+
+		/* Campaign info fields */
+		parse("<campaignName/>").text($("#campaign_name_field").val()).appendTo(campaign);
+		parse("<campaignUrn/>").text($("#campaign_urn_field").val()).appendTo(campaign);
+
+		/* Append all surveys */
 		var surveys = $("<surveys/>").appendTo(campaign);
 
 		$("#surveygroup .survey_form").each(function(){
@@ -282,6 +288,7 @@ $.getJSON("logic.json", function(logic){
 	})
 
 	$("#syntax_highlight_button").click(writexml)
+	$(".campaign_info_field").on("keyup", writexml)
 
 	//init page
 	writexml();

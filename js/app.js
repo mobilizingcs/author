@@ -170,6 +170,7 @@ $.getJSON("logic.json", function(logic){
 
 		el.find(".choice_values").tagit({
 			allowSpaces : true,
+			placeholderText : "Type and hit [ENTER]",
 			afterTagAdded : writexml,
 			afterTagRemoved : writexml
 		})

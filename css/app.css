@@ -28,7 +28,7 @@ textarea {
 }
 
 body {
-	padding-bottom: 250px;
+	padding-bottom: 500px;
 }
 
 .remove_prompt_button:hover, .remove_survey_button:hover{
@@ -42,3 +42,4 @@ body {
 .prompt-icon{
 	padding-right: 10px;
 }
+

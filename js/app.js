@@ -110,6 +110,15 @@ $.getJSON("logic.json", function(logic){
 		var fields = logic.prompttypes[prompt_type];
 		var el = $("#prompttemplate").children().clone();
 		var form = el.find("form");
+		var prompttext = a.find(".prompt_id_text");
+		var id_field;
+		var skippable_field;
+
+		function updateText(){
+			var skiptext = skippable_field.is(":checked") ? "  (skippable)" : "";
+			prompttext.text((id_field.val() || "___") + skiptext)
+		}
+
 
 		// Other fields get dynamically
 		$.each(fields, function(index, fieldname){
@@ -131,13 +140,21 @@ $.getJSON("logic.json", function(logic){
 
 			//update view
 			if(fieldname == "id"){
-				var prompttext = a.find(".prompt_id_text");
+				id_field = input;
 				input.on("keyup", function(){
-					var urn = urnify($(this).val())
-					$(this).val(urn)
-					prompttext.text(urn || "___")
+					$(this).val(urnify($(this).val()))
+					updateText();
 				})
 			}
+
+			//update view
+			if(fieldname == "skippable"){
+				skippable_field = input;
+				input.on("change", function(){
+					updateText();
+				})
+			}
+
 		});
 
 		a.find(".remove_prompt_button").click(function(e){

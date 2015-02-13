@@ -41,7 +41,8 @@
 		"maxDimension" : {
 			"type" : "number",
 			"label" : "Max dimension",
-			"property" : true
+			"property" : true,
+			"default" : 800
 		},
 		"defaultnumber" : {
 			"type" : "number",
@@ -62,9 +63,9 @@
 	"prompttypes" : {
 		"message" : ["id", "messageText"],
 		"timestamp" : ["id", "displayLabel", "promptText", "skippable"],
-		"photo" : ["id", "displayLabel", "promptText", "skippable"],
-		"singlechoice" : ["id", "displayLabel", "promptText", "options", "skippable"],
-		"multichoice" : ["id", "displayLabel", "promptText", "options", "skippable"],
+		"photo" : ["id", "displayLabel", "promptText", "skippable", "maxDimension"],
+		"single_choice" : ["id", "displayLabel", "promptText", "options", "skippable"],
+		"multi_choice" : ["id", "displayLabel", "promptText", "options", "skippable"],
 		"number" : ["id", "displayLabel", "promptText", "min", "max", "wholeNumber", "skippable"],
 		"text" : ["id", "displayLabel", "promptText", "min", "max", "skippable"]
 	},
@@ -72,8 +73,8 @@
 		"message" : "info-sign",
 		"timestamp" : "time",
 		"photo" : "picture",
-		"singlechoice" : "menu-hamburger",
-		"multichoice" : "th",
+		"single_choice" : "menu-hamburger",
+		"multi_choice" : "th",
 		"number" : "sound-5-1",
 		"text" : "text-size"
 	}

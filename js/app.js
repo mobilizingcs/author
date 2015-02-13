@@ -117,6 +117,7 @@ $.getJSON("logic.json", function(logic){
 			var output = Mustache.render(templates[field.type], {
 				field : fieldname,
 				label : field.label || toTitleCase(fieldname),
+				default : field.default,
 				placeholder : field.placeholder || "Please enter " + fieldname.toLowerCase()
 			});
 			var input = form.append(output).find("input");

@@ -44,7 +44,7 @@
 			"property" : true,
 			"default" : 800
 		},
-		"defaultnumber" : {
+		"default" : {
 			"type" : "number",
 			"label" : "Default",
 			"placeholder" : "A default value"
@@ -58,6 +58,18 @@
 			"type" : "keyval",
 			"label" : "Option values",
 			"property" : true
+		},
+		"max_milliseconds" : {
+			"type" : "number",
+			"label" : "Maximum Length (in milliseconds)",
+			"property" : true,
+			"default" : 60000
+		},
+		"max_seconds" : {
+			"type" : "number",
+			"label" : "Maximum Length (in seconds)",
+			"property" : true,
+			"default" : 180
 		}
 	},
 	"prompttypes" : {
@@ -65,17 +77,25 @@
 		"timestamp" : ["id", "displayLabel", "promptText", "skippable"],
 		"photo" : ["id", "displayLabel", "promptText", "skippable", "maxDimension"],
 		"single_choice" : ["id", "displayLabel", "promptText", "options", "skippable"],
+		"single_choice_custom" : ["id", "displayLabel", "promptText", "options", "skippable"],
 		"multi_choice" : ["id", "displayLabel", "promptText", "options", "skippable"],
-		"number" : ["id", "displayLabel", "promptText", "min", "max", "wholeNumber", "skippable"],
-		"text" : ["id", "displayLabel", "promptText", "min", "max", "skippable"]
+		"multi_choice_custom" : ["id", "displayLabel", "promptText", "options", "skippable"],
+		"number" : ["id", "displayLabel", "promptText", "min", "max", "default", "wholeNumber", "skippable"],
+		"text" : ["id", "displayLabel", "promptText", "min", "max", "skippable"],
+		"audio" : ["id", "displayLabel", "promptText", "max_milliseconds", "skippable"],
+		"video" : ["id", "displayLabel", "promptText", "max_seconds", "skippable"]
 	},
 	"icons" : {
 		"message" : "info-sign",
 		"timestamp" : "time",
 		"photo" : "picture",
 		"single_choice" : "menu-hamburger",
+		"single_choice_custom" : "menu-hamburger",
 		"multi_choice" : "th",
+		"multi_choice_custom" : "th",
 		"number" : "sound-5-1",
-		"text" : "text-size"
+		"text" : "text-size",
+		"video" : "facetime-video",
+		"audio" : "music"
 	}
 }

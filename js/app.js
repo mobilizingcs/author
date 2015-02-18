@@ -265,6 +265,22 @@ $.getJSON("logic.json", function(logic){
 		return xml
 	}
 
+	function xml2form(xmltext){
+		var xml = $.parseXML(xmltext);
+		var campaign = $("campaign", xml);
+		var surveys = campaign.children("surveys");
+
+		/* campaign fields */
+		$("#campaign_name_field").val(campaign.children("campaignName").val());
+		$("#campaign_urn_field").val(campaign.children("campaignUrn").val());
+
+		/* surveys */
+
+
+
+
+	}
+
 	function writexml(){
 		var xmltext = vkbeautify.xml('<?xml version="1.0" encoding="UTF-8"?>\n' + form2xml().html());
 		$("code").text(xmltext)

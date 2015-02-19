@@ -119,7 +119,7 @@ $.getJSON("logic.json", function(logic){
 		var skippable_field;
 
 		function updateText(){
-			var skiptext = skippable_field.is(":checked") ? "  (skippable)" : "";
+			var skiptext = skippable_field && skippable_field.is(":checked") ? "  (skippable)" : "";
 			prompttext.text((id_field.val() || "___") + skiptext)
 		}
 
@@ -309,6 +309,7 @@ $.getJSON("logic.json", function(logic){
 					id : prompt.children("id").text(),
 					displayLabel : prompt.children("displayLabel").text(),
 					promptText : prompt.children("promptText").text(),
+					messageText : prompt.children("messageText").text(),
 					default : prompt.children("default").text(),
 					skippable : (prompt.children("skippable").text() === "true") ? "checked" : " " // watch out "" will get coerced to null
 				}

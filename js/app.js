@@ -33,9 +33,7 @@ $.getJSON("logic.json", function(logic){
 	});
 
 	//create new surveys
-	$("#new_survey_button").click(function(e){
-		e.preventDefault();
-		this.blur();
+	function new_survey(){
 		var el = $("#surveytemplate .survey_content").clone();
 		var id = el.children(".panel-collapse").uniqueId()[0].id;
 		el.find("h4.panel-title a").attr("href", "#" + id);
@@ -76,7 +74,8 @@ $.getJSON("logic.json", function(logic){
 		//update xml
 		el.find("input,textarea").change(writexml).keyup(writexml);
 		writexml();
-	});
+		return el;
+	}
 
 	//create new prompt
 	function add_prompt(prompt_type, el){
@@ -270,15 +269,17 @@ $.getJSON("logic.json", function(logic){
 		var campaign = $("campaign", xml);
 		var surveys = campaign.children("surveys");
 
-		/* campaign fields */
+		//debug
+		window.xml = xml;
+
+		/* campaign fields  if set */
 		$("#campaign_name_field").val(campaign.children("campaignName").val());
 		$("#campaign_urn_field").val(campaign.children("campaignUrn").val());
 
 		/* surveys */
-
-
-
-
+		surveys.children('survey').each(function(i, survey){
+			var survey_el = new_survey()
+		})
 	}
 
 	function writexml(){
@@ -299,17 +300,45 @@ $.getJSON("logic.json", function(logic){
 		return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 	}
 
+	//filters alphanumeric characters
 	function urnify(str){
 		return str.replace(/[^a-z0-9]/gi,'').substr(0, 20)
 	}
 
+	//start new survey
+	$("#new_survey_button").click(function(e){
+		e.preventDefault();
+		this.blur();
+		new_survey();
+	});
+
+	//download XML as file
 	$("#download_xml_button").click(function(e){
 		$(this).attr("download", "campaign.xml")
 		$(this).attr("href", "data:application/xml," + encodeURIComponent(writexml()))
 	})
 
+	//force a render
 	$("#syntax_highlight_button").click(writexml)
 	$(".campaign_info_field").on("keyup", writexml)
+
+	//upload XML file
+	$("#upload_xml_button").change(function(e){
+		e.preventDefault()
+		if(!this.files[0]){
+			alert("no file selected")
+			return;
+		}
+		if(!this.files[0].name.match(/[.]xml$/i)){
+			alert("Filename does not end with .xml")
+			return;
+		}
+		var filereader = new FileReader();
+		filereader.onload = function(e){
+			xml2form(e.target.result)
+		}
+		filereader.readAsText(this.files[0]);
+	})
 
 	//init page
 	writexml();

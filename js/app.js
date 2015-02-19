@@ -43,7 +43,7 @@ $.getJSON("logic.json", function(logic){
 		});
 		el.find(".dropdown-menu a").click(function(e){
 			e.preventDefault();
-			add_prompt($(this).data("type"), el.find(".survey_prompt_list"))
+			add_prompt($(this).data("type"), el.find(".survey_prompt_list"), {})
 			writexml();
 		});
 		el.find(".remove_survey_button").click(function(e){
@@ -78,7 +78,7 @@ $.getJSON("logic.json", function(logic){
 	}
 
 	//create new prompt
-	function add_prompt(prompt_type, prompt_list){
+	function add_prompt(prompt_type, prompt_list, values){
 		return prompt_list.append(function(){
 			var a = $(Mustache.render(templates.promptlink, {
 				prompt_type : prompt_type,
@@ -89,7 +89,7 @@ $.getJSON("logic.json", function(logic){
 				//placement: "top",
 				//trigger: "hover",
 				title : prompt_type + ' prompt', // <span class="close_popover_button pull-right glyphicon glyphicon-remove"></span>',
-				content: popover_content(prompt_type, a)
+				content: popover_content(prompt_type, a, values)
 			}).click(function(e){
 				e.preventDefault();
 			}).on("show.bs.popover", function(){
@@ -103,7 +103,7 @@ $.getJSON("logic.json", function(logic){
 	}
 
 	//initiate the prompt popover
-	function popover_content(prompt_type, a){
+	function popover_content(prompt_type, a, values){
 		var templates = window.templates;
 		var fields = logic.prompttypes[prompt_type];
 		var el = $("#prompttemplate").children().clone();
@@ -124,7 +124,7 @@ $.getJSON("logic.json", function(logic){
 			var output = Mustache.render(templates[field.type], {
 				field : fieldname,
 				label : field.label || toTitleCase(fieldname),
-				default : field.default,
+				default : values[fieldname] || field.default,
 				placeholder : field.placeholder || "Please enter " + fieldname.toLowerCase()
 			});
 			var input = form.append(output).find("input");
@@ -166,15 +166,22 @@ $.getJSON("logic.json", function(logic){
 			})
 		});
 
-		el.find(".choice_values").tagit({
+		var taglist = el.find(".choice_values").tagit({
 			allowSpaces : true,
 			placeholderText : "Type and hit [ENTER]",
 			afterTagAdded : writexml,
 			afterTagRemoved : writexml
 		})
 
-		el.find("input,textarea").change(writexml).keyup(writexml);
+		//hack to prepopulate single choice
+		$.each(values, function(key, label){
+			if(key == parseInt(key)){
+				$(taglist).tagit("createTag", label)
+			}
+		})
 
+		el.find("input,textarea").change(writexml).keyup(writexml);
+		updateText();
 		return el;
 	}
 
@@ -268,9 +275,6 @@ $.getJSON("logic.json", function(logic){
 		var campaign = $("campaign", xml);
 		var surveys = campaign.children("surveys");
 
-		//debug
-		window.xml = xml;
-
 		/* campaign fields  if set */
 		$("#campaign_name_field").val(campaign.children("campaignName").val());
 		$("#campaign_urn_field").val(campaign.children("campaignUrn").val());
@@ -285,7 +289,7 @@ $.getJSON("logic.json", function(logic){
 			survey_el.find(".survey_title_field").val(survey.children("title").text())
 			survey_el.find(".survey_description_field").val(survey.children("description").text())
 			survey_el.find(".survey_submit_field").val(survey.children("submitText").text())
-			survey_el.find(".survey_anytime_field").val(survey.children("anytime").text() === "true")
+			survey_el.find(".survey_anytime_field")[0].checked = (survey.children("anytime").text() === "true")
 
 			/* render individual prompts */
 			contents.children().each(function(){
@@ -293,11 +297,26 @@ $.getJSON("logic.json", function(logic){
 				/* can be either prompt or message */
 				var prompt = $(this)
 				var prompt_type = prompt.is("message") ? "message" : prompt.children("promptType").text()
-				var prompt_el = add_prompt(prompt_type, survey_prompt_list);
 
+				/* search for values in the xml */
+				var values = {
+					id : prompt.children("id").text() || null,
+					displayLabel : prompt.children("displayLabel").text() || null,
+					promptText : prompt.children("promptText").text() || null,
+					default : prompt.children("default").text() || null,
+					skippable : (prompt.children("skippable").text() === "true") ? "checked" : " " // watch out "" will get coerced to null
+				}
+
+				/* add special property values */
+				prompt.find("properties property").each(function(){
+					var key = $(this).children("key").text()
+					var label = $(this).children("label").text()
+					values[key] = label;
+				})
+
+				/* create the gui element */
+				var prompt_link = add_prompt(prompt_type, survey_prompt_list, values)
 			})
-
-
 		})
 
 		//force render

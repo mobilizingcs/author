@@ -45,6 +45,7 @@ $.getJSON("logic.json", function(logic){
 			e.preventDefault();
 			var prompt_type = $(this).data("type");
 			add_prompt(prompt_type, el)
+			writexml();
 		});
 		el.find(".remove_survey_button").click(function(e){
 			e.preventDefault();
@@ -79,7 +80,7 @@ $.getJSON("logic.json", function(logic){
 
 	//create new prompt
 	function add_prompt(prompt_type, el){
-		el.find(".survey_prompt_list").append(function(){
+		return el.find(".survey_prompt_list").append(function(){
 			var a = $(Mustache.render(templates.promptlink, {
 				prompt_type : prompt_type,
 				icon : logic.icons[prompt_type]
@@ -100,7 +101,6 @@ $.getJSON("logic.json", function(logic){
 			})
 			return a;
 		})
-		writexml();
 	}
 
 	//initiate the prompt popover
@@ -277,9 +277,31 @@ $.getJSON("logic.json", function(logic){
 		$("#campaign_urn_field").val(campaign.children("campaignUrn").val());
 
 		/* surveys */
-		surveys.children('survey').each(function(i, survey){
-			var survey_el = new_survey()
+		surveys.children('survey').each(function(){
+			var survey = $(this);
+			var contents = survey.children("contentList")
+			var survey_el = new_survey();
+			var survey_prompt_list = survey_el.find(".survey_prompt_list")
+			survey_el.find(".survey_id_field").val(survey.children("id").text())
+			survey_el.find(".survey_title_field").val(survey.children("title").text())
+			survey_el.find(".survey_description_field").val(survey.children("description").text())
+			survey_el.find(".survey_submit_field").val(survey.children("submitText").text())
+			survey_el.find(".survey_anytime_field").val(survey.children("anytime").text() === "true")
+
+			/* render individual prompts */
+			contents.children().each(function(){
+
+				/* can be either prompt or message */
+				var prompt = $(this)
+				var type = prompt.is("message") ? "message" : prompt.children("promptType").text()
+				console.log(type)
+			})
+
+
 		})
+
+		//force render
+		writexml()
 	}
 
 	function writexml(){

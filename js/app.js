@@ -43,8 +43,7 @@ $.getJSON("logic.json", function(logic){
 		});
 		el.find(".dropdown-menu a").click(function(e){
 			e.preventDefault();
-			var prompt_type = $(this).data("type");
-			add_prompt(prompt_type, el)
+			add_prompt($(this).data("type"), el.find(".survey_prompt_list"))
 			writexml();
 		});
 		el.find(".remove_survey_button").click(function(e){
@@ -79,8 +78,8 @@ $.getJSON("logic.json", function(logic){
 	}
 
 	//create new prompt
-	function add_prompt(prompt_type, el){
-		return el.find(".survey_prompt_list").append(function(){
+	function add_prompt(prompt_type, prompt_list){
+		return prompt_list.append(function(){
 			var a = $(Mustache.render(templates.promptlink, {
 				prompt_type : prompt_type,
 				icon : logic.icons[prompt_type]
@@ -293,8 +292,9 @@ $.getJSON("logic.json", function(logic){
 
 				/* can be either prompt or message */
 				var prompt = $(this)
-				var type = prompt.is("message") ? "message" : prompt.children("promptType").text()
-				console.log(type)
+				var prompt_type = prompt.is("message") ? "message" : prompt.children("promptType").text()
+				var prompt_el = add_prompt(prompt_type, survey_prompt_list);
+
 			})
 
 

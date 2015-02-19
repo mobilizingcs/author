@@ -79,27 +79,33 @@ $.getJSON("logic.json", function(logic){
 
 	//create new prompt
 	function add_prompt(prompt_type, prompt_list, values){
-		return prompt_list.append(function(){
-			var a = $(Mustache.render(templates.promptlink, {
-				prompt_type : prompt_type,
-				icon : logic.icons[prompt_type]
-			})).data("prompt_type", prompt_type);
-			a.popover({
-				html: true,
-				//placement: "top",
-				//trigger: "hover",
-				title : prompt_type + ' prompt', // <span class="close_popover_button pull-right glyphicon glyphicon-remove"></span>',
-				content: popover_content(prompt_type, a, values)
-			}).click(function(e){
-				e.preventDefault();
-			}).on("show.bs.popover", function(){
-				if(oldpop != a){
-					closepop();
-				}
-				oldpop = a;
-			})
-			return a;
+
+		var a = $(Mustache.render(templates.promptlink, {
+			prompt_type : prompt_type,
+			icon : logic.icons[prompt_type]
+		})).data("prompt_type", prompt_type);
+
+		// create the
+		a.popover({
+			html: true,
+			//placement: "top",
+			//trigger: "hover",
+			title : prompt_type + ' prompt', // <span class="close_popover_button pull-right glyphicon glyphicon-remove"></span>',
+			content: popover_content(prompt_type, a, values)
+		}).click(function(e){
+			e.preventDefault();
+		}).on("show.bs.popover", function(){
+			if(oldpop != a){
+				closepop();
+			}
+			oldpop = a;
 		})
+
+		prompt_list.append(a)
+
+		//force render of form
+		a.popover("show").popover("hide")
+		return a;
 	}
 
 	//initiate the prompt popover
@@ -300,10 +306,10 @@ $.getJSON("logic.json", function(logic){
 
 				/* search for values in the xml */
 				var values = {
-					id : prompt.children("id").text() || null,
-					displayLabel : prompt.children("displayLabel").text() || null,
-					promptText : prompt.children("promptText").text() || null,
-					default : prompt.children("default").text() || null,
+					id : prompt.children("id").text(),
+					displayLabel : prompt.children("displayLabel").text(),
+					promptText : prompt.children("promptText").text(),
+					default : prompt.children("default").text(),
 					skippable : (prompt.children("skippable").text() === "true") ? "checked" : " " // watch out "" will get coerced to null
 				}
 
@@ -315,7 +321,7 @@ $.getJSON("logic.json", function(logic){
 				})
 
 				/* create the gui element */
-				var prompt_link = add_prompt(prompt_type, survey_prompt_list, values)
+				add_prompt(prompt_type, survey_prompt_list, values)
 			})
 		})
 

@@ -191,8 +191,8 @@ $.getJSON("logic.json", function(logic){
 			}
 		})
 
-		//hack for existing campaigns that start counting at 0.
-		if(smallest_key < 1){
+		//hack for existing campaigns that do not start counting at 1
+		if(smallest_key != 1){
 			taglist.attr("start", smallest_key);
 		}
 

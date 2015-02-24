@@ -362,8 +362,14 @@ $.getJSON("logic.json", function(logic){
 
 	//download XML as file
 	$("#download_xml_button").click(function(e){
-		$(this).attr("download", "campaign.xml")
-		$(this).attr("href", "data:application/xml," + encodeURIComponent(writexml()))
+		var xml = writexml();
+		if(window.navigator && window.navigator.msSaveBlob){
+			e.preventDefault();
+			navigator.msSaveBlob( new Blob([xml], {type:'application/xml'}), "campaign.xml" )
+		} else {
+			//$(this).attr("download", "campaign.xml")
+			$(this).attr("href", "data:application/xml," + encodeURIComponent(xml));      
+		}		
 	})
 
 	//force a render

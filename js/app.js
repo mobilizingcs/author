@@ -363,7 +363,7 @@ $.getJSON("logic.json", function(logic){
 	//download XML as file
 	$("#download_xml_button").click(function(e){
 		$(this).attr("download", "campaign.xml")
-		$(this).attr("href", "data:application/xml," + encodeURIComponent(writexml()))
+		$(this).attr("href", "data:text/css," + encodeURIComponent(writexml()))
 	})
 
 	//force a render

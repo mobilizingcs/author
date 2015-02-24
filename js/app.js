@@ -179,12 +179,22 @@ $.getJSON("logic.json", function(logic){
 			afterTagRemoved : writexml
 		})
 
-		//hack to prepopulate single choice
+		//prepopulate single choice
+		var smallest_key = 1;
 		$.each(values, function(key, label){
-			if(key == parseInt(key)){
+			var numkey = parseInt(key)
+			if(key == numkey){
+				if(numkey < smallest_key){
+					smallest_key = numkey;
+				}
 				$(taglist).tagit("createTag", label)
 			}
 		})
+
+		//hack for existing campaigns that start counting at 0.
+		if(smallest_key < 1){
+			taglist.attr("start", smallest_key);
+		}
 
 		el.find("input,textarea").change(writexml).keyup(writexml);
 		updateText();
@@ -245,9 +255,10 @@ $.getJSON("logic.json", function(logic){
 					//some fields have to be put in the xml as 'properties'
 					if(logic.fields[name].property){
 						if(field.is("ol")){
+							var offset = field.attr("start") ? parseFloat(field.attr("start")) : 1;
 							$.each(field.tagit("assignedTags"), function(i, val){
 								//we start counting from 1 because that is how OL are displayed
-								properties[i + 1] = val
+								properties[i + offset] = val
 							});
 						} else {
 							properties[name] = value;
@@ -368,8 +379,8 @@ $.getJSON("logic.json", function(logic){
 			navigator.msSaveBlob( new Blob([xml], {type:'application/xml'}), "campaign.xml" )
 		} else {
 			//$(this).attr("download", "campaign.xml")
-			$(this).attr("href", "data:application/xml," + encodeURIComponent(xml));      
-		}		
+			$(this).attr("href", "data:application/xml," + encodeURIComponent(xml));
+		}
 	})
 
 	//force a render

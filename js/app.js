@@ -3,6 +3,8 @@ $.getJSON("logic.json", function(logic){
 	//globals
 	var oldpop;
 	var ohmage_user;
+	var update_urn;
+	var update_name;
 	var oh = Ohmage("/app", "surveytool")
 
 	//attach global callbacks
@@ -30,10 +32,14 @@ $.getJSON("logic.json", function(logic){
                output_format: "long"
             }).done(function(data){
 				var campaign = data[urn];
+            	update_urn = urn;
+            	update_name = campaign.name
 				xml2form(campaign.xml);
 				$("#campaign_urn_field").val(urn);
 				$("#campaign_name_field").val(campaign.name);
 				$("#class_urn_field option").text(campaign.classes);
+				$("#create_campaign_button").addClass("hide");
+				$("#update_campaign_button").removeClass("hide");
             });
 		} else {
 			//get available classes
@@ -419,6 +425,16 @@ $.getJSON("logic.json", function(logic){
 		return str.replace(/[^a-z0-9:]/gi,'').substr(0, 20)
 	}
 
+	function fixxml(input, name, urn){
+        var xml = $.parseXML(input);
+        var campaign = $("campaign", xml);
+        campaign.children("campaignName").remove();
+        campaign.children("campaignUrn").remove();
+        campaign.prepend(parse("<campaignName/>").text(name))
+        campaign.prepend(parse("<campaignUrn/>").text(urn))
+        return (new XMLSerializer()).serializeToString(xml);
+    }
+
 	//start new survey
 	$("#new_survey_button").click(function(e){
 		e.preventDefault();
@@ -475,21 +491,31 @@ $.getJSON("logic.json", function(logic){
 			class_urn_list : class_urn,
 			xml : writexml()
 		}).done(function(){
-			alert("success!")
+			window.location.hash = campaign_urn;
+			window.location.reload()
+		});
+	});
+
+	$("#update_campaign_button").click(function(e){
+		e.preventDefault();
+		oh.campaign.update({
+			campaign_urn : update_urn,
+			xml : fixxml(writexml(), update_name, update_urn)
+		}).done(function(){
+			window.location.reload()
 		});
 	});
 
 	//autogenerate urns
 	$("#campaign_name_field").on("keyup", function(){
 		var name = $(this).val()
-		var urn = "urn:campaign:" + ohmage_user + ":" + name.toLowerCase().replace(/[^a-z0-9:]/gi,'');
-		$("#campaign_urn_field").val(urn);
+		var urn = "urn:campaign:" + ohmage_user + ":" + name.toLowerCase();
+		$("#campaign_urn_field").val(urn.replace(/[^a-z0-9:]/gi,''));
 	})
 
 	//strip spaces from urns
 	$("#campaign_urn_field").on("keyup", function(){
 		$(this).val($(this).val().replace(/[^a-z0-9:]/gi,''));
-		updateText();
 	})
 
 	//init page

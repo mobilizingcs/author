@@ -75,9 +75,13 @@
 							</select>
 						</div>
 
-						<button type="button" id="new_survey_button" class="btn btn-success pull-right">
-							<span class="glyphicon glyphicon-plus"></span> Add New Survey
+						<button type="button" id="new_survey_button" class="btn btn-primary">
+							<span class="glyphicon glyphicon-plus"></span> Add Survey
 						</button>
+
+						<a target="_blank" href="#" type="button" id="create_campaign_button" class="btn btn-success pull-right">
+							<span class="glyphicon glyphicon-upload"></span> Upload Campaign
+						</a>
 
 					</div>
 				</div>
@@ -100,22 +104,18 @@
 					<label><input type="checkbox" id="syntax_highlight_button"> Enable Syntax Highlighting</label>
 				</div>
 
-				<div class="fileinput fileinput-new" data-provides="fileinput">
-					<span class="btn btn-danger btn-file">
-						<span class="fileinput-new"><span style="margin-right:5px" class="glyphicon glyphicon-folder-open"></span> Open File</span>
-						<input type="file" id="upload_xml_button" name="campaign XML">
-					</span>
-				</div>
-
 
 				<div class="pull-right">
 
-					<a target="_blank" href="#" type="button" id="download_xml_button" download="campaign.xml" class="btn btn-primary">
-						<span class="glyphicon glyphicon-save"></span> Download XML
-					</a>
+					<div class="fileinput fileinput-new" data-provides="fileinput">
+						<span class="btn btn-danger btn-file">
+							<span class="fileinput-new"><span style="margin-right:5px" class="glyphicon glyphicon-folder-open"></span> Import XML File</span>
+							<input type="file" id="upload_xml_button" name="campaign XML">
+						</span>
+					</div>
 
-					<a target="_blank" href="#" type="button" id="create_campaign_button" class="btn btn-success">
-						<span class="glyphicon glyphicon-play"></span> Create Campaign
+					<a target="_blank" href="#" type="button" id="download_xml_button" download="campaign.xml" class="btn btn-primary">
+						<span class="glyphicon glyphicon-save"></span> Save XML to File
 					</a>
 
 				</div>

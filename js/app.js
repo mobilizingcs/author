@@ -337,7 +337,7 @@ $.getJSON("logic.json", function(logic){
 			var contents = survey.children("contentList")
 			var survey_el = new_survey();
 			var survey_prompt_list = survey_el.find(".survey_prompt_list")
-			survey_el.find(".survey_id_field").val(survey.children("id").text())
+			survey_el.find(".survey_id_field").val(survey.children("id").text()).trigger("keyup")
 			survey_el.find(".survey_title_field").val(survey.children("title").text())
 			survey_el.find(".survey_description_field").val(survey.children("description").text())
 			survey_el.find(".survey_submit_field").val(survey.children("submitText").text())
@@ -465,7 +465,7 @@ $.getJSON("logic.json", function(logic){
 	//autogenerate urns
 	$("#campaign_name_field").on("keyup", function(){
 		var name = $(this).val()
-		var urn = "urn:campaign:" + ohmage_user + ":" + name.toLowerCase().replace(/[^a-z0-9:-]/gi,'');
+		var urn = "urn:campaign:" + ohmage_user + ":" + name.toLowerCase().replace(/[^a-z0-9:]/gi,'');
 		$("#campaign_urn_field").val(urn);
 	})
 

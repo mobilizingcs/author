@@ -23,17 +23,34 @@ $.getJSON("logic.json", function(logic){
 		//make sure we don't timeout
 		oh.keepalive();
 
-		//get available classes
-		oh.user.info().done(function(x){
-			var classlist = {};
-			$.each(x[username].classes, function(urn, name){
-				classlist[name] = urn;
-			});
-			$.each(Object.keys(classlist).sort(), function(i, name){
-				var urn = classlist[name];
-				$("#class_urn_field").append($("<option/>").val(urn).text(name));
+		var urn = window.location.hash.replace(/^[#]/, "");
+		if(urn.match(/^urn/)){
+			oh.campaign.readall({
+               campaign_urn_list: urn,
+               output_format: "long"
+            }).done(function(data){
+				var campaign = data[urn];
+				xml2form(campaign.xml);
+				$("#campaign_urn_field").val(urn);
+				$("#campaign_name_field").val(campaign.name);
+				$("#class_urn_field option").text(campaign.classes);
+            });
+		} else {
+			//get available classes
+			oh.user.info().done(function(x){
+				var classlist = {};
+				$.each(x[username].classes, function(urn, name){
+					classlist[name] = urn;
+				});
+				$.each(Object.keys(classlist).sort(), function(i, name){
+					var urn = classlist[name];
+					$("#class_urn_field").append($("<option/>").val(urn).text(name));
+				})
 			})
-		})
+
+			//enable campaign info fields
+			$(".campaign_info_field").removeAttr("disabled");
+		}
 	});
 
 	//XML parser for mixed case tag names (HTML only supports lowercase tags)
@@ -328,8 +345,8 @@ $.getJSON("logic.json", function(logic){
 		var surveys = campaign.children("surveys");
 
 		/* campaign fields  if set */
-		$("#campaign_name_field").val(campaign.children("campaignName").val());
-		$("#campaign_urn_field").val(campaign.children("campaignUrn").val());
+		//$("#campaign_name_field").val(campaign.children("campaignName").val());
+		//$("#campaign_urn_field").val(campaign.children("campaignUrn").val());
 
 		/* surveys */
 		surveys.children('survey').each(function(){

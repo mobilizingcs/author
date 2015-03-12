@@ -471,7 +471,7 @@ $.getJSON("logic.json", function(logic){
 
 	//strip spaces from urns
 	$("#campaign_urn_field").on("keyup", function(){
-		$(this).val($(this).val().replace(/[^a-z0-9:-]/gi,''));
+		$(this).val($(this).val().replace(/[^a-z0-9:]/gi,''));
 		updateText();
 	})
 

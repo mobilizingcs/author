@@ -20,6 +20,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
 	-->
 
+	<!-- ohmage client -->
+	<script src="js/ohmage.js"></script>
+	<script src="js/jquery-cookie.js"></script>
+	<script src="js/client.js"></script>
+
 	<link href="css/jasny-bootstrap.min.css" rel="stylesheet">
 
 
@@ -63,6 +68,11 @@
 							<input type="text" class="form-control campaign_info_field" id="campaign_urn_field" placeholder="A unique ID">
 						</div>
 
+						<div class="form-group">
+							<label class="control-label">Class</label>
+							<input type="text" class="form-control campaign_info_field" id="class_urn_field" placeholder="Select a class">
+						</div>						
+
 						<button type="button" id="new_survey_button" class="btn btn-success pull-right">
 							<span class="glyphicon glyphicon-plus"></span> Add New Survey
 						</button>
@@ -87,8 +97,6 @@
 					<label><input type="checkbox" id="syntax_highlight_button"> Enable Syntax Highlighting</label>
 				</div>
 
-				<div class="pull-right">
-
 
 					<div class="fileinput fileinput-new" data-provides="fileinput">
 						<span class="btn btn-danger btn-file">
@@ -97,10 +105,16 @@
 						</span>
 					</div>
 
-
 					<a target="_blank" href="#" type="button" id="download_xml_button" download="campaign.xml" class="btn btn-primary">
-						<span class="glyphicon glyphicon-save"></span> Save XML
+						<span class="glyphicon glyphicon-save"></span> Download XML
 					</a>
+
+				<div class="pull-right">
+
+					<a target="_blank" href="#" type="button" class="btn btn-success">
+						<span class="glyphicon glyphicon-play"></span> Store Campaign
+					</a>
+
 				</div>
 
 			</div>

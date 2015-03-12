@@ -2,6 +2,7 @@ $.getJSON("logic.json", function(logic){
 
 	//globals
 	var oldpop;
+	var ohmage_user;
 	var oh = Ohmage("/app", "surveytool")
 
 	//attach global callbacks
@@ -17,6 +18,7 @@ $.getJSON("logic.json", function(logic){
 
 	//initiate ohmage client
 	oh.user.whoami().done(function(username){
+		ohmage_user = username;
 
 		//make sure we don't timeout
 		oh.keepalive();
@@ -397,7 +399,7 @@ $.getJSON("logic.json", function(logic){
 
 	//filters alphanumeric characters
 	function urnify(str){
-		return str.replace(/[^a-z0-9]/gi,'').substr(0, 20)
+		return str.replace(/[^a-z0-9:]/gi,'').substr(0, 20)
 	}
 
 	//start new survey
@@ -459,6 +461,19 @@ $.getJSON("logic.json", function(logic){
 			alert("success!")
 		});
 	});
+
+	//autogenerate urns
+	$("#campaign_name_field").on("keyup", function(){
+		var name = $(this).val()
+		var urn = "urn:campaign:" + ohmage_user + ":" + name.toLowerCase().replace(/[^a-z0-9:-]/gi,'');
+		$("#campaign_urn_field").val(urn);
+	})
+
+	//strip spaces from urns
+	$("#campaign_urn_field").on("keyup", function(){
+		$(this).val($(this).val().replace(/[^a-z0-9:-]/gi,''));
+		updateText();
+	})
 
 	//init page
 	writexml();

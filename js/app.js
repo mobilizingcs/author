@@ -133,7 +133,9 @@ $.getJSON("logic.json", function(logic){
 				default : values[fieldname] || field.default,
 				placeholder : field.placeholder || "Please enter " + fieldname.toLowerCase()
 			});
-			var input = form.append(output).find("input");
+			var input = $(output).appendTo(form).find("input");
+
+			//debugger;
 
 			//force number fields to be numbers.
 			if(field.type == "number"){
@@ -207,8 +209,8 @@ $.getJSON("logic.json", function(logic){
 		var campaign = $("<campaign/>").appendTo(xml);
 
 		/* Campaign info fields */
-		parse("<campaignName/>").text($("#campaign_name_field").val()).appendTo(campaign);
-		parse("<campaignUrn/>").text($("#campaign_urn_field").val()).appendTo(campaign);
+		//parse("<campaignName/>").text($("#campaign_name_field").val()).appendTo(campaign);
+		//parse("<campaignUrn/>").text($("#campaign_urn_field").val()).appendTo(campaign);
 
 		/* Append all surveys */
 		var surveys = $("<surveys/>").appendTo(campaign);
@@ -354,6 +356,9 @@ $.getJSON("logic.json", function(logic){
 
 		return xmltext;
 	}
+
+	//debug
+	window.writexml = writexml;
 
 	function toTitleCase(str){
 		return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});

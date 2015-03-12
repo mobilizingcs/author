@@ -491,6 +491,7 @@ $.getJSON("logic.json", function(logic){
 			class_urn_list : class_urn,
 			xml : writexml()
 		}).done(function(){
+			alert("Success! Campaign was created!")
 			window.location.hash = campaign_urn;
 			window.location.reload()
 		});
@@ -502,6 +503,7 @@ $.getJSON("logic.json", function(logic){
 			campaign_urn : update_urn,
 			xml : fixxml(writexml(), update_name, update_urn)
 		}).done(function(){
+			alert("Success! Campaign was updated!")
 			window.location.reload()
 		});
 	});

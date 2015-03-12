@@ -38,7 +38,6 @@ $.getJSON("logic.json", function(logic){
 				$("#campaign_urn_field").val(urn);
 				$("#campaign_name_field").val(campaign.name);
 				$("#class_urn_field option").text(campaign.classes);
-				$("#create_campaign_button").addClass("hide");
 				$("#update_campaign_button").removeClass("hide");
             });
 		} else {
@@ -55,6 +54,7 @@ $.getJSON("logic.json", function(logic){
 			})
 
 			//enable campaign info fields
+			$("#create_campaign_button").removeClass("hide");
 			$(".campaign_info_field").removeAttr("disabled");
 		}
 	});

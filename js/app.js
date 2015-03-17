@@ -43,7 +43,7 @@ $.getJSON("logic.json", function(logic){
 				console.log(campaign)
 				$("#campaign_running").bootstrapSwitch("state", campaign.running_state == "running")
 				$("#campaign_privacy").bootstrapSwitch("state", campaign.privacy_state == "shared")
-
+				$("#campaign_description").val(campaign.description);
 				$("#campaign_urn_field").val(urn);
 				$("#campaign_name_field").val(campaign.name);
 				$("#class_urn_field option").text(campaign.classes);
@@ -66,8 +66,6 @@ $.getJSON("logic.json", function(logic){
 			$("#create_campaign_button").removeClass("hide");
 			$(".campaign_info_field").removeAttr("disabled");
 		}
-
-
 	});
 
 	//XML parser for mixed case tag names (HTML only supports lowercase tags)
@@ -495,6 +493,7 @@ $.getJSON("logic.json", function(logic){
 		var class_urn = $("#class_urn_field").val() || alert("Invalid class");
         var running_state = $("#campaign_running")[0].checked ? "running" : "stopped";
         var privacy_state = $("#campaign_privacy")[0].checked ? "shared" : "private";
+        var description = $("#campaign_description").val();
 
 		oh.campaign.create({
 			running_state : running_state,
@@ -502,6 +501,7 @@ $.getJSON("logic.json", function(logic){
 			campaign_urn : campaign_urn,
 			campaign_name : campaign_name,
 			class_urn_list : class_urn,
+			description : description,
 			xml : writexml()
 		}).done(function(){
 			alert("Success! Campaign was created!")
@@ -513,11 +513,14 @@ $.getJSON("logic.json", function(logic){
 	$("#update_campaign_button").click(function(e){
         var running_state = $("#campaign_running")[0].checked ? "running" : "stopped";
         var privacy_state = $("#campaign_privacy")[0].checked ? "shared" : "private";
+        var description = $("#campaign_description").val();
+
 		e.preventDefault();
 		oh.campaign.update({
 			running_state : running_state,
 			privacy_state : privacy_state,
 			campaign_urn : update_urn,
+			description : description,
 			xml : fixxml(writexml(), update_name, update_urn)
 		}).done(function(){
 			alert("Success! Campaign was updated!")

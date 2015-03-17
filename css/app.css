@@ -53,3 +53,7 @@ body {
 	color: red;
 	text-decoration: none;
 }
+
+.bootstrap-switch{
+	margin-right: 15px;
+}

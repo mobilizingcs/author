@@ -190,6 +190,11 @@ $.getJSON("logic.json", function(logic){
 
 
 		// Other fields get dynamically
+		if(!fields){
+			alert("Skipping unsupported prompt type: " + prompt_type)
+			return;
+		}
+
 		$.each(fields, function(index, fieldname){
 			var field = logic.fields[fieldname];
 			var output = Mustache.render(templates[field.type], {

@@ -77,7 +77,7 @@
 	"prompttypes" : {
 		"message" : ["id", "messageText"],
 		"timestamp" : ["id", "displayLabel", "promptText", "skippable"],
-		"photo" : ["id", "displayLabel", "promptText", "skippable", "maxDimension"],
+		"photo" : ["id", "displayLabel", "promptText", "maxDimension", "skippable"],
 		"single_choice" : ["id", "displayLabel", "promptText", "options", "default", "skippable"],
 		"single_choice_custom" : ["id", "displayLabel", "promptText", "options", "default", "skippable"],
 		"multi_choice" : ["id", "displayLabel", "promptText", "options", "default", "skippable"],

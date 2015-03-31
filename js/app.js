@@ -65,6 +65,9 @@ $.getJSON("logic.json", function(logic){
 			//enable campaign info fields
 			$("#create_campaign_button").removeClass("hide");
 			$(".campaign_info_field").removeAttr("disabled");
+
+			//don't allow editing campaign ID field
+			$("#campaign_urn_field").attr("disabled", "disabled")
 		}
 	});
 

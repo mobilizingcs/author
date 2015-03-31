@@ -139,6 +139,10 @@ $.getJSON("logic.json", function(logic){
 			el.find("h4.panel-title a").text("Survey: " + urn)
 		})
 
+		el.find(".survey_title_field").on("keyup", function(){
+			el.find(".survey_id_field").val(urnify($(this).val())).trigger("keyup")
+		})
+
 		//update xml
 		el.find("input,textarea").change(writexml).keyup(writexml);
 		writexml();

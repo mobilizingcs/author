@@ -452,6 +452,13 @@ $.getJSON("logic.json", function(logic){
         return (new XMLSerializer()).serializeToString(xml);
     }
 
+	function update_campaign_urn(){
+		var campaign_name = $("#campaign_name_field").val() || "noname";
+		var class_urn = $("#class_urn_field").val().replace("urn:class:", "") || "noclass";
+		var urn = "urn:campaign:" + class_urn + ":" + ohmage_user + ":" + campaign_name.toLowerCase();
+		$("#campaign_urn_field").val(urn.replace(/[^a-z0-9:]/gi,''));
+	}
+
 	//start new survey
 	$("#new_survey_button").click(function(e){
 		e.preventDefault();
@@ -537,11 +544,8 @@ $.getJSON("logic.json", function(logic){
 	});
 
 	//autogenerate urns
-	$("#campaign_name_field").on("keyup", function(){
-		var name = $(this).val()
-		var urn = "urn:campaign:" + ohmage_user + ":" + name.toLowerCase();
-		$("#campaign_urn_field").val(urn.replace(/[^a-z0-9:]/gi,''));
-	})
+	$("#campaign_name_field").on("keyup", update_campaign_urn)
+	$("#class_urn_field").on("change", update_campaign_urn)
 
 	//strip spaces from urns
 	$("#campaign_urn_field").on("keyup", function(){

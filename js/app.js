@@ -188,6 +188,7 @@ $.getJSON("logic.json", function(logic){
 		var form = el.find("form");
 		var prompttext = a.find(".prompt_id_text");
 		var id_field;
+		var label_field;
 		var skippable_field;
 
 		function updateText(){
@@ -227,7 +228,16 @@ $.getJSON("logic.json", function(logic){
 				input.on("keyup", function(){
 					$(this).val(urnify($(this).val()))
 					updateText();
+
+					//copy id into label field (requested by Hongsuda)
+					if(label_field){
+						label_field.val($(this).val())
+					}
 				})
+			}
+
+			if(fieldname == "displayLabel"){
+				label_field = input;
 			}
 
 			//update view

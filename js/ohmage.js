@@ -326,12 +326,12 @@ function Ohmage(app, client){
 	}
 
 	//no more than 1 ping every 60 sec
-	oh.ping = debounce(oh.user.whoami, 60*1000, true);
+	oh.ping = debounce(oh.user.whoami, 10 * 1000, true);
 
 	//ping once every t sec
 	oh.keepalive = once(function(t){
 		t = t || 60;
-		setInterval(oh.ping, t*1000)
+		setInterval(oh.ping, t * 1000)
 	});
 
 	//or: keep alive only when active

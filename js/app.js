@@ -134,13 +134,13 @@ $.getJSON("logic.json", function(logic){
 
 		//update view
 		el.find(".survey_id_field").on("keyup", function(){
-			var urn = urnify($(this).val())
+			var urn = idify($(this).val())
 			$(this).val(urn)
 			el.find("h4.panel-title a").text("Survey: " + urn)
 		})
 
 		el.find(".survey_title_field").on("keyup", function(){
-			el.find(".survey_id_field").val(urnify($(this).val())).trigger("keyup")
+			el.find(".survey_id_field").val(idify($(this).val().toLowerCase())).trigger("keyup")
 		})
 
 		//update xml
@@ -226,7 +226,7 @@ $.getJSON("logic.json", function(logic){
 			if(fieldname == "id"){
 				id_field = input;
 				input.on("keyup", function(){
-					$(this).val(urnify($(this).val()))
+					$(this).val(idify($(this).val()))
 					updateText();
 
 					//copy id into label field (requested by Hongsuda)
@@ -455,6 +455,11 @@ $.getJSON("logic.json", function(logic){
 	function urnify(str){
 		return str.replace(/[^a-z0-9:]/gi,'').substr(0, 20)
 	}
+
+	//filters alphanumeric and underscore
+	function idify(str){
+		return str.replace(/\s/g, "_").replace(/[^a-z0-9_]/gi,'').substr(0, 20)
+	}	
 
 	function fixxml(input, name, urn){
         var xml = $.parseXML(input);

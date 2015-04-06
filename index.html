@@ -99,17 +99,9 @@
 							<input type="text" class="form-control campaign_info_field" id="campaign_urn_field" placeholder="A unique ID" disabled>
 						</div>
 
-						<button type="button" id="new_survey_button" class="btn btn-primary">
+						<button type="button" id="new_survey_button" class="btn btn-sm btn-primary pull-right">
 							<span class="glyphicon glyphicon-plus"></span> Add Survey
 						</button>
-
-						<a target="_blank" href="#" type="button" id="create_campaign_button" class="hide btn btn-success pull-right">
-							<span class="glyphicon glyphicon-upload"></span> Submit Campaign
-						</a>
-
-						<a target="_blank" href="#" type="button" id="update_campaign_button" class="hide btn btn-success pull-right">
-							<span class="glyphicon glyphicon-upload"></span> Update Campaign
-						</a>
 
 					</div>
 				</div>
@@ -126,26 +118,44 @@
 
 			<div class="col-md-7 col-lg-8">
 
+
+				<div class="btn-toolbar" role="toolbar">
+					<div class="btn-group" role="group" >
+
+						<div class="fileinput fileinput-new" data-provides="fileinput">
+							<span class="btn btn-sm btn-default btn-file">
+								<span class="fileinput-new"><span class="glyphicon glyphicon-folder-open"></span> Import XML</span>
+								<input type="file" id="upload_xml_button" name="campaign XML">
+							</span>
+						</div>
+					</div>
+
+					<div class="btn-group" role="group" >
+						<a target="_blank" href="#" type="button" id="download_xml_button" download="campaign.xml" class="btn btn-sm btn-default">
+							<span class="glyphicon glyphicon-save"></span> Save XML to File
+						</a>
+					</div>
+
+					<div class="btn-group pull-right" role="group" >
+
+						<a target="_blank" href="#" type="button" id="create_campaign_button" class="hide btn btn-success pull-right btn-sm">
+							<span class="glyphicon glyphicon-upload"></span> Submit Campaign
+						</a>
+					</div>
+
+					<div class="btn-group pull-right" role="group" >
+
+						<a target="_blank" href="#" type="button" id="update_campaign_button" class="hide btn btn-success pull-right btn-sm">
+							<span class="glyphicon glyphicon-upload"></span> Update Campaign
+						</a>	
+
+					</div>
+				</div>
+
 				<pre><code></code></pre>
 
 				<div class="checkbox">
 					<label><input type="checkbox" id="syntax_highlight_button"> Enable Syntax Highlighting</label>
-				</div>
-
-
-				<div class="pull-right">
-
-					<div class="fileinput fileinput-new" data-provides="fileinput">
-						<span class="btn btn-danger btn-file">
-							<span class="fileinput-new"><span style="margin-right:5px" class="glyphicon glyphicon-folder-open"></span> Import XML</span>
-							<input type="file" id="upload_xml_button" name="campaign XML">
-						</span>
-					</div>
-
-					<a target="_blank" href="#" type="button" id="download_xml_button" download="campaign.xml" class="btn btn-primary">
-						<span class="glyphicon glyphicon-save"></span> Save XML to File
-					</a>
-
 				</div>
 
 			</div>
@@ -205,7 +215,7 @@
 						</div>
 
 						<div class="btn-group pull-right">
-							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+							<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
 								<span class="glyphicon glyphicon-plus"></span> Add Prompt <span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu">

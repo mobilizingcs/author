@@ -27,7 +27,7 @@ $.getJSON("logic.json", function(logic){
 
 		//init switches
 		$("#campaign_running").bootstrapSwitch({onColor: "success", offColor: "danger", onText:"running", offText:"stopped"})
-		$("#campaign_privacy").bootstrapSwitch({onColor: "success", offColor: "danger", onText:"enable", offText:"disable"})
+		$("#campaign_privacy").bootstrapSwitch({onColor: "success", offColor: "danger", onText:"allowed", offText:"disabled"})
 
 		var urn = window.location.hash.replace(/^[#]/, "");
 		if(urn.match(/^urn/)){

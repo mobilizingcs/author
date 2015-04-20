@@ -339,7 +339,7 @@ $.getJSON("logic.json", function(logic){
 					var value = field.is("input[type=checkbox]") ? field.is(':checked') : field.val();
 
 					//do not add empty default field into the XML
-					if(name === "default" && value === "") return
+					if(logic.fields[name].optional && value === "") return;
 
 					//some fields have to be put in the xml as 'properties'
 					if(logic.fields[name].property){
@@ -459,7 +459,7 @@ $.getJSON("logic.json", function(logic){
 	//filters alphanumeric and underscore
 	function idify(str){
 		return str.replace(/\s/g, "_").replace(/[^a-z0-9_]/gi,'').substr(0, 20)
-	}	
+	}
 
 	function fixxml(input, name, urn){
         var xml = $.parseXML(input);

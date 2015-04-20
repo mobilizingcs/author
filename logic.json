@@ -20,6 +20,12 @@
 			"label" : "Prompt label",
 			"placeholder" : "A short label"
 		},
+		"condition" : {
+			"type" : "string",
+			"label" : "Condition",
+			"placeholder" : "For example: age > 12",
+			"optional" : true
+		},
 		"skippable" : {
 			"type" : "bool"
 		},
@@ -49,7 +55,8 @@
 		"default" : {
 			"type" : "number",
 			"label" : "Default",
-			"placeholder" : "A default value"
+			"placeholder" : "A default value",
+			"optional" : true
 		},
 		"defaultstring" : {
 			"type" : "string",
@@ -75,17 +82,17 @@
 		}
 	},
 	"prompttypes" : {
-		"message" : ["id", "messageText"],
-		"timestamp" : ["id", "displayLabel", "promptText", "skippable"],
-		"photo" : ["id", "displayLabel", "promptText", "maxDimension", "skippable"],
-		"single_choice" : ["id", "displayLabel", "promptText", "options", "default", "skippable"],
-		"single_choice_custom" : ["id", "displayLabel", "promptText", "options", "default", "skippable"],
-		"multi_choice" : ["id", "displayLabel", "promptText", "options", "default", "skippable"],
-		"multi_choice_custom" : ["id", "displayLabel", "promptText", "options", "default", "skippable"],
-		"number" : ["id", "displayLabel", "promptText", "min", "max", "default", "wholeNumber", "skippable"],
-		"text" : ["id", "displayLabel", "promptText", "min", "max", "skippable"],
-		"audio" : ["id", "displayLabel", "promptText", "max_milliseconds", "skippable"],
-		"video" : ["id", "displayLabel", "promptText", "max_seconds", "skippable"]
+		"message" : ["id", "messageText", "condition"],
+		"timestamp" : ["id", "displayLabel", "promptText", "condition", "skippable"],
+		"photo" : ["id", "displayLabel", "promptText", "maxDimension", "condition", "skippable"],
+		"single_choice" : ["id", "displayLabel", "promptText", "options", "default", "condition", "skippable"],
+		"single_choice_custom" : ["id", "displayLabel", "promptText", "options", "default", "condition", "skippable"],
+		"multi_choice" : ["id", "displayLabel", "promptText", "options", "default", "condition", "skippable"],
+		"multi_choice_custom" : ["id", "displayLabel", "promptText", "options", "default", "condition", "skippable"],
+		"number" : ["id", "displayLabel", "promptText", "min", "max", "default", "condition", "wholeNumber", "skippable"],
+		"text" : ["id", "displayLabel", "promptText", "min", "max", "condition", "skippable"],
+		"audio" : ["id", "displayLabel", "promptText", "max_milliseconds", "condition", "skippable"],
+		"video" : ["id", "displayLabel", "promptText", "max_seconds", "condition", "skippable"]
 	},
 	"icons" : {
 		"message" : "info-sign",

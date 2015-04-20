@@ -411,6 +411,7 @@ $.getJSON("logic.json", function(logic){
 					promptText : prompt.children("promptText").text(),
 					messageText : prompt.children("messageText").text(),
 					default : prompt.children("default").text(),
+					condition : prompt.children("condition").text(),
 					skippable : (prompt.children("skippable").text() === "true") ? "checked" : " " // watch out "" will get coerced to null
 				}
 

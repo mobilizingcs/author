@@ -211,9 +211,20 @@ $.getJSON("logic.json", function(logic){
 				default : values[fieldname] || field.default,
 				placeholder : field.placeholder || "Please enter " + fieldname.toLowerCase()
 			});
-			var input = $(output).appendTo(form).find("input");
+			var el = $(output);
+			var input = el.appendTo(form).find("input");
 
 			//debugger;
+
+			//enable tooltips
+			if(field.tooltip){
+				el.find("label").addClass("hoverable").tooltip({
+					delay: { "show": 250, "hide": 100 },
+					placement : "top",
+					container: 'body',
+					title : field.tooltip
+				})
+			}
 
 			//force number fields to be numbers.
 			if(field.type == "number"){

@@ -24,7 +24,8 @@
 			"type" : "string",
 			"label" : "Condition",
 			"placeholder" : "For example: age > 12",
-			"optional" : true
+			"optional" : true,
+			"tooltip" : "Use condition rules, e.g: age > 12 AND age < 18"
 		},
 		"skippable" : {
 			"type" : "bool"

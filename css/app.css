@@ -57,3 +57,12 @@ body {
 .bootstrap-switch{
 	margin-right: 15px;
 }
+
+#campaign_urn_field {
+	font-weight: bold;
+}
+
+.hoverable:hover{
+	font-style: italic;
+	text-decoration: underline;
+}

@@ -15,7 +15,7 @@ $.getJSON("logic.json", function(logic){
 
 	//global error handler. In ohmage 200 means unauthenticated
 	oh.callback("error", function(msg, code, req){
-		(code == 200) ? window.location.replace("../web/#login") : alert("Error!\n" + msg);
+		(code == 200) ? window.location.replace("/#login") : alert("Error!\n" + msg);
 	});
 
 	//initiate ohmage client

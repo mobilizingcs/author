@@ -1,8 +1,9 @@
 $(function(){
+	$('[data-toggle="tooltip"]').tooltip()
 	if(location.hostname == "lausd.mobilizingcs.org"){
 		$(".hidelausd").hide();
 	}
-})
+});
 
 $.getJSON("logic.json", function(logic){
 

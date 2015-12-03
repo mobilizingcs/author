@@ -114,6 +114,7 @@
 		"number" : "sound-5-1",
 		"text" : "text-size",
 		"video" : "facetime-video",
+		"file" : "file",
 		"audio" : "music"
 	}
 }

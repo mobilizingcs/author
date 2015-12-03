@@ -78,9 +78,10 @@
 		},
 		"max_milliseconds" : {
 			"type" : "number",
-			"label" : "Maximum Length (in milliseconds)",
+			"label" : "Maximum Length (in seconds)",
 			"property" : true,
-			"default" : 60000
+			"default" : 60,
+			"transform" : "function(x){return x * 1000;}"
 		},
 		"max_seconds" : {
 			"type" : "number",

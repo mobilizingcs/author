@@ -355,6 +355,12 @@ $.getJSON("logic.json", function(logic){
 					//do not add empty default field into the XML
 					if(logic.fields[name].optional && value === "") return;
 
+					//optional value transformations
+					if(logic.fields[name].transform){
+						eval("var transform = " + logic.fields[name].transform);
+						value = transform(value);
+					}
+
 					//some fields have to be put in the xml as 'properties'
 					if(logic.fields[name].property){
 						if(field.is("ol")){

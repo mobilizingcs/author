@@ -441,6 +441,11 @@ $.getJSON("logic.json", function(logic){
 					var key = $(this).children("key").text()
 					var label = $(this).children("label").text()
 					values[key] = label;
+
+					//fix for e.g. wholeNumbers
+					if(logic.fields[key].type == "bool"){
+						values[key] = (label === "true") ? "checked" : " ";
+					}
 				})
 
 				/* create the gui element */

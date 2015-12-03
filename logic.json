@@ -53,6 +53,13 @@
 			"property" : true,
 			"default" : 800
 		},
+		"imageQuality" : {
+			"type" : "number",
+			"label" : "Image quality",
+			"property" : true,
+			"optional" : true,
+			"default" : 80
+		},
 		"maxFileSize" : {
 			"type" : "number",
 			"label" : "Max filesize",
@@ -93,7 +100,7 @@
 	"prompttypes" : {
 		"message" : ["id", "messageText", "condition"],
 		"timestamp" : ["id", "displayLabel", "promptText", "condition", "skippable"],
-		"photo" : ["id", "displayLabel", "promptText", "maxDimension", "condition", "skippable"],
+		"photo" : ["id", "displayLabel", "promptText", "maxDimension", "imageQuality", "condition", "skippable"],
 		"single_choice" : ["id", "displayLabel", "promptText", "options", "default", "condition", "skippable"],
 		"single_choice_custom" : ["id", "displayLabel", "promptText", "options", "default", "condition", "skippable"],
 		"multi_choice" : ["id", "displayLabel", "promptText", "options", "default", "condition", "skippable"],

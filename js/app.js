@@ -350,6 +350,7 @@ $.getJSON("logic.json", function(logic){
 				fields.each(function(){
 					var field = $(this);
 					var name = field.data("field")
+					var realname = logic.fields[name].name || name;
 					var value = field.is("input[type=checkbox]") ? field.is(':checked') : field.val();
 
 					//do not add empty default field into the XML
@@ -373,7 +374,7 @@ $.getJSON("logic.json", function(logic){
 							properties[name] = value;
 						}
 					} else {
-						parse("<"+name+"/>").text(value).appendTo(prompt)
+						parse("<"+realname+"/>").text(value).appendTo(prompt)
 					}
 
 					//ohmage apparently has no default for this

@@ -443,7 +443,7 @@ $.getJSON("logic.json", function(logic){
 					values[key] = label;
 
 					//fix for e.g. wholeNumbers
-					if(logic.fields[key].type == "bool"){
+					if(logic.fields[key] && logic.fields[key].type == "bool"){
 						values[key] = (label === "true") ? "checked" : " ";
 					}
 				})

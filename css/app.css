@@ -11,6 +11,10 @@
 	}
 }
 
+.right-col {
+	min-height: 1000px;	
+}
+
 .panel-heading .accordion-toggle:after {
 	/* symbol for "opening" panels */
 	font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */

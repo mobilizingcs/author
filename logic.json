@@ -53,6 +53,13 @@
 			"property" : true,
 			"default" : 800
 		},
+		"maxFileSize" : {
+			"type" : "number",
+			"label" : "Max filesize",
+			"property" : true,
+			"optional" : true,
+			"default" : 1000000
+		},
 		"default" : {
 			"type" : "number",
 			"label" : "Default",
@@ -93,7 +100,8 @@
 		"number" : ["id", "displayLabel", "promptText", "min", "max", "default", "condition", "wholeNumber", "skippable"],
 		"text" : ["id", "displayLabel", "promptText", "min", "max", "condition", "skippable"],
 		"audio" : ["id", "displayLabel", "promptText", "max_milliseconds", "condition", "skippable"],
-		"video" : ["id", "displayLabel", "promptText", "max_seconds", "condition", "skippable"]
+		"video" : ["id", "displayLabel", "promptText", "max_seconds", "condition", "skippable"],
+		"file" : ["id", "displayLabel", "promptText", "maxFileSize", "condition", "skippable"]
 	},
 	"icons" : {
 		"message" : "info-sign",

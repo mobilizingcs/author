@@ -1,3 +1,16 @@
+@media (min-width: 970px){
+	.affix {
+		margin-top: -565px;
+		z-index: 100;
+	}
+}
+
+@media (max-width: 970px){
+	.affix {
+		position: static;
+	}
+}
+
 .panel-heading .accordion-toggle:after {
 	/* symbol for "opening" panels */
 	font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */

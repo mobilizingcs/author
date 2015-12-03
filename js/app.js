@@ -44,7 +44,7 @@ $.getJSON("logic.json", function(logic){
 				$("#campaign_running").bootstrapSwitch("state", campaign.running_state == "running")
 				$("#campaign_privacy").bootstrapSwitch("state", campaign.privacy_state == "shared")
 				$("#campaign_description").val(campaign.description);
-				$("#campaign_urn_field").val("ID: " + urn);
+				$("#campaign_urn_field").val(urn);
 				$("#campaign_name_field").val(campaign.name);
 				$("#class_urn_field option").text(campaign.classes);
 				$("#update_campaign_button").removeClass("hide");
@@ -497,7 +497,7 @@ $.getJSON("logic.json", function(logic){
 		var campaign_name = $("#campaign_name_field").val() || "noname";
 		var class_urn = $("#class_urn_field").val().replace("urn:class:", "") || "noclass";
 		var urn = "urn:campaign:" + class_urn + ":" + ohmage_user + ":" + campaign_name.toLowerCase();
-		$("#campaign_urn_field").val("ID: " + urn.replace(/[^a-z0-9:]/gi,''));
+		$("#campaign_urn_field").val(urn.replace(/[^a-z0-9:]/gi,''));
 	}
 
 	//start new survey

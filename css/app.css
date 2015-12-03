@@ -31,7 +31,7 @@ body {
 	padding-bottom: 500px;
 }
 
-.remove_prompt_button:hover, .remove_survey_button:hover{
+.remove_prompt_button:hover, .remove_survey_button:hover, .close_popover_button:hover{
 	color: red;
 }
 

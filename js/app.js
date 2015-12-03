@@ -86,6 +86,9 @@ $.getJSON("logic.json", function(logic){
 		}
 	}
 
+	//hack
+	window.closepop = closepop;
+
 	//escape button
 	$(document).keydown(function(e){
 		if(e.which == 27){
@@ -162,7 +165,7 @@ $.getJSON("logic.json", function(logic){
 			html: true,
 			//placement: "top",
 			//trigger: "hover",
-			title : prompt_type + ' prompt', // <span class="close_popover_button pull-right glyphicon glyphicon-remove"></span>',
+			title :  prompt_type + ' prompt <span class="close_popover_button pull-right glyphicon glyphicon-remove" onclick="closepop()" />',
 			content: popover_content(prompt_type, a, values)
 		}).click(function(e){
 			e.preventDefault();

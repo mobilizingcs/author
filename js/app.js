@@ -1,3 +1,9 @@
+$(function(){
+	if(location.hostname == "lausd.mobilizingcs.org"){
+		$(".hidelausd").hide();
+	}
+})
+
 $.getJSON("logic.json", function(logic){
 
 	//globals

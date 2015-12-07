@@ -156,6 +156,9 @@ $.getJSON("logic.json", function(logic){
 		//update xml
 		el.find("input,textarea").change(writexml).keyup(writexml);
 		writexml();
+
+		//validator
+		el.find("form").validator();
 		return el;
 	}
 
@@ -219,12 +222,11 @@ $.getJSON("logic.json", function(logic){
 				field : fieldname,
 				label : field.label || toTitleCase(fieldname),
 				default : values[fieldname] || field.default,
-				placeholder : field.placeholder || "Please enter " + fieldname.toLowerCase()
+				placeholder : field.placeholder || "Please enter " + fieldname.toLowerCase(),
+				required : logic.fields[fieldname].optional ? "" : "required"
 			});
 			var el = $(output);
 			var input = el.appendTo(form).find("input");
-
-			//debugger;
 
 			//enable tooltips
 			if(field.tooltip){
@@ -269,6 +271,7 @@ $.getJSON("logic.json", function(logic){
 				})
 			}
 
+			form.validator();
 		});
 
 		a.find(".remove_prompt_button").click(function(e){

@@ -218,9 +218,14 @@ $.getJSON("logic.json", function(logic){
 
 		$.each(fields, function(index, fieldname){
 			var field = logic.fields[fieldname];
+			var label = field.label || toTitleCase(fieldname);
+			if(logic.fields[fieldname].optional) {
+				label = label + " (optional)"
+			}
+			
 			var output = Mustache.render(templates[field.type], {
 				field : fieldname,
-				label : field.label || toTitleCase(fieldname),
+				label : label,
 				default : values[fieldname] || field.default,
 				placeholder : field.placeholder || "Please enter " + fieldname.toLowerCase(),
 				required : logic.fields[fieldname].optional ? "" : "required"

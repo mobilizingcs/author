@@ -158,7 +158,7 @@ $.getJSON("logic.json", function(logic){
 		writexml();
 
 		//validator
-		el.find("form").validator();
+		el.find("form").validator({delay:100});
 		return el;
 	}
 
@@ -170,13 +170,16 @@ $.getJSON("logic.json", function(logic){
 			icon : logic.icons[prompt_type]
 		})).data("prompt_type", prompt_type);
 
+		var content = popover_content(prompt_type, a, values);
+		var form = content.find("form.prompt_form");
+
 		// create the
 		a.popover({
 			html: true,
 			//placement: "top",
 			//trigger: "hover",
 			title :  prompt_type + ' prompt <span class="close_popover_button pull-right glyphicon glyphicon-remove" onclick="closepop()" />',
-			content: popover_content(prompt_type, a, values)
+			content: content
 		}).click(function(e){
 			e.preventDefault();
 		}).on("show.bs.popover", function(){
@@ -189,7 +192,13 @@ $.getJSON("logic.json", function(logic){
 		prompt_list.append(a)
 
 		//force render of form
-		a.popover("show").popover("hide")
+		a.popover("show").popover("hide").on("hide.bs.popover", function(){
+			if(form.validator('validate').has('.has-error').length){
+				a.addClass("list-group-item-danger")
+			} else {
+				a.removeClass("list-group-item-danger")
+			}
+		});
 		return a;
 	}
 
@@ -275,8 +284,6 @@ $.getJSON("logic.json", function(logic){
 					updateText();
 				})
 			}
-
-			form.validator();
 		});
 
 		a.find(".remove_prompt_button").click(function(e){
@@ -316,6 +323,7 @@ $.getJSON("logic.json", function(logic){
 
 		el.find("input,textarea").change(writexml).keyup(writexml);
 		updateText();
+		form.validator({delay:100});
 		return el;
 	}
 

@@ -114,6 +114,7 @@ $.getJSON("logic.json", function(logic){
 	function new_survey(){
 		var el = $("#surveytemplate .survey_content").clone();
 		var id = el.children(".panel-collapse").uniqueId()[0].id;
+		var form = el.find("form");
 		el.find("h4.panel-title a").attr("href", "#" + id);
 		el.find(".list-group").sortable({
 			update: writexml,
@@ -121,6 +122,7 @@ $.getJSON("logic.json", function(logic){
 		});
 		el.find(".dropdown-menu a").click(function(e){
 			e.preventDefault();
+			form.validator('validate');
 			add_prompt($(this).data("type"), el.find(".survey_prompt_list"), {})
 			writexml();
 		});
@@ -158,7 +160,7 @@ $.getJSON("logic.json", function(logic){
 		writexml();
 
 		//validator
-		el.find("form").validator({delay:100});
+		form.validator({delay:100});
 		return el;
 	}
 

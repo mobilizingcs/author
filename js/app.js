@@ -574,9 +574,10 @@ $.getJSON("logic.json", function(logic){
 	//upload button
 	$("#create_campaign_button").click(function(e){
 		e.preventDefault();
-		var campaign_name = $("#campaign_name_field").val() || alert("Invalid campaign name");
-		var campaign_urn = $("#campaign_urn_field").val() || alert("Invalid campaign urn");
-		var class_urn = $("#class_urn_field").val() || alert("Invalid class");
+		$(".campaign_form,.survey_form,.prompt_form").validator("validate");
+		var campaign_name = $("#campaign_name_field").val();
+		var campaign_urn = $("#campaign_urn_field").val();
+		var class_urn = $("#class_urn_field").val();
         var running_state = $("#campaign_running")[0].checked ? "running" : "stopped";
         var privacy_state = $("#campaign_privacy")[0].checked ? "shared" : "private";
         var description = $("#campaign_description").val();

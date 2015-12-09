@@ -191,16 +191,17 @@ $.getJSON("logic.json", function(logic){
 			oldpop = a;
 		})
 
-		prompt_list.append(a)
-
-		//force render of form
-		a.popover("show").popover("hide").on("hide.bs.popover", function(){
+		prompt_list.append(a);
+		function highlight(){
 			if(form.validator('validate').has('.has-error').length){
 				a.addClass("list-group-item-danger")
 			} else {
 				a.removeClass("list-group-item-danger")
 			}
-		});
+		}
+
+		//force render of form
+		a.popover("show").on("hide.bs.popover", highlight);
 		return a;
 	}
 

@@ -222,6 +222,7 @@ $.getJSON("logic.json", function(logic){
 		var id_field;
 		var label_field;
 		var skippable_field;
+		var taglist;
 
 		function updateText(){
 			var skiptext = skippable_field && skippable_field.is(":checked") ? "  (skippable)" : "";
@@ -304,7 +305,7 @@ $.getJSON("logic.json", function(logic){
 					writexml();
 				}
 
-				var taglist = el.find(".choice_values").tagit({
+				taglist = el.find(".choice_values").tagit({
 					allowSpaces : true,
 					placeholderText : "Type and hit [ENTER]",
 					afterTagAdded : validateTagList,

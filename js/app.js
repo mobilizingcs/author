@@ -123,7 +123,7 @@ $.getJSON("logic.json", function(logic){
 		el.find(".dropdown-menu a").click(function(e){
 			e.preventDefault();
 			form.validator('validate');
-			add_prompt($(this).data("type"), el.find(".survey_prompt_list"), {})
+			add_prompt($(this).data("type"), el.find(".survey_prompt_list"), null)
 			writexml();
 		});
 		el.find(".remove_survey_button").click(function(e){
@@ -172,7 +172,7 @@ $.getJSON("logic.json", function(logic){
 			icon : logic.icons[prompt_type]
 		})).data("prompt_type", prompt_type);
 
-		var content = popover_content(prompt_type, a, values);
+		var content = popover_content(prompt_type, a, values || {});
 		var form = content.find("form.prompt_form");
 
 		// create the
@@ -205,6 +205,9 @@ $.getJSON("logic.json", function(logic){
 			form.validator('validate');
 			highlight();
 		});
+
+		//added from existing campaign
+		if(values) a.popover("hide");
 		form.validator().on("valid.bs.validator", highlight);
 		return a;
 	}

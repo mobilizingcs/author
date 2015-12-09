@@ -293,7 +293,26 @@ $.getJSON("logic.json", function(logic){
 				input.on("change", function(){
 					updateText();
 				})
+			}		
+
+			//hack to validate at least one option for single choice items
+			if(field.type == "keyval"){
+
+				function validateTagList(){
+					var values = el.find(".choice_values").tagit("assignedTags");
+					el.find("input").prop('required', values.length == 0);
+					writexml();
+				}
+
+				var taglist = el.find(".choice_values").tagit({
+					allowSpaces : true,
+					placeholderText : "Type and hit [ENTER]",
+					afterTagAdded : validateTagList,
+					afterTagRemoved : validateTagList
+				});
+				el.find("input").prop('required', true);
 			}
+
 		});
 
 		a.find(".remove_prompt_button").click(function(e){
@@ -306,13 +325,6 @@ $.getJSON("logic.json", function(logic){
 				writexml();
 			})
 		});
-
-		var taglist = el.find(".choice_values").tagit({
-			allowSpaces : true,
-			placeholderText : "Type and hit [ENTER]",
-			afterTagAdded : writexml,
-			afterTagRemoved : writexml
-		})
 
 		//prepopulate single choice
 		var smallest_key = 1;

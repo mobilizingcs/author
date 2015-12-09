@@ -193,7 +193,7 @@ $.getJSON("logic.json", function(logic){
 
 		prompt_list.append(a);
 		function highlight(){
-			if(form.validator('validate').has('.has-error').length){
+			if(form.has('.has-error').length){
 				a.addClass("list-group-item-danger")
 			} else {
 				a.removeClass("list-group-item-danger")
@@ -201,7 +201,11 @@ $.getJSON("logic.json", function(logic){
 		}
 
 		//force render of form
-		a.popover("show").on("hide.bs.popover", highlight);
+		a.popover("show").on("hide.bs.popover", function(){
+			form.validator('validate');
+			highlight();
+		});
+		form.validator().on("valid.bs.validator", highlight);
 		return a;
 	}
 

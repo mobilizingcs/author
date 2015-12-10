@@ -45,7 +45,8 @@
 		"wholeNumber" : {
 			"type" : "bool",
 			"label" : "Whole numbers only",
-			"property" : true
+			"property" : true,
+			"default" : "checked"
 		},
 		"maxDimension" : {
 			"type" : "number",
@@ -58,15 +59,13 @@
 			"label" : "JPEG quality",
 			"property" : true,
 			"optional" : true,
-			"default" : 80,
 			"tooltip" : "number between 1 and 100"
 		},
 		"maxFileSize" : {
 			"type" : "number",
 			"label" : "Max filesize in bytes",
 			"property" : true,
-			"optional" : true,
-			"default" : 1000000
+			"optional" : true
 		},
 		"default" : {
 			"type" : "number",

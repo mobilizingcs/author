@@ -63,7 +63,7 @@
 		},
 		"maxFileSize" : {
 			"type" : "number",
-			"label" : "Max filesize",
+			"label" : "Max filesize in bytes",
 			"property" : true,
 			"optional" : true,
 			"default" : 1000000

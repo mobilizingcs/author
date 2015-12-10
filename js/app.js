@@ -222,6 +222,7 @@ $.getJSON("logic.json", function(logic){
 		var id_field;
 		var label_field;
 		var skippable_field;
+		var min_field;
 		var taglist;
 
 		function updateText(){
@@ -294,7 +295,17 @@ $.getJSON("logic.json", function(logic){
 				input.on("change", function(){
 					updateText();
 				})
-			}		
+			}
+
+			//validate that max > min
+			if(fieldname == "min"){
+				min_field = input;
+			} else if(fieldname == "max" && min_field){
+				min_field.change(function(){
+					input.attr("min", min_field.val());
+					form.validator("validate");
+				});
+			}
 
 			//hack to validate at least one option for single choice items
 			if(field.type == "keyval"){

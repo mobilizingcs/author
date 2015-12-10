@@ -58,7 +58,8 @@
 			"label" : "JPEG quality",
 			"property" : true,
 			"optional" : true,
-			"default" : 80
+			"default" : 80,
+			"tooltip" : "number between 1 and 100"
 		},
 		"maxFileSize" : {
 			"type" : "number",

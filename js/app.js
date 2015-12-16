@@ -260,6 +260,7 @@ $.getJSON("logic.json", function(logic){
 					delay: { "show": 250, "hide": 100 },
 					placement : "top",
 					container: 'body',
+					html: true,
 					title : field.tooltip
 				})
 			}

@@ -256,13 +256,14 @@ $.getJSON("logic.json", function(logic){
 
 			//enable tooltips
 			if(field.tooltip){
-				el.find("label").addClass("hoverable").tooltip({
+
+				$('<span class="tooltip-icon glyphicon glyphicon-question-sign" />').addClass("tooltip-icon").tooltip({
 					delay: { "show": 250, "hide": 100 },
 					placement : "top",
 					container: 'body',
 					html: true,
 					title : field.tooltip
-				})
+				}).appendTo(el.find("label"))
 			}
 
 			//force number fields to be numbers.

@@ -89,3 +89,11 @@ body {
 	font-style: italic;
 	text-decoration: underline;
 }
+
+.tooltip-icon {
+	padding-left: 5px;
+}
+
+.tooltip-icon:hover {
+	color: green;
+}

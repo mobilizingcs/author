@@ -25,7 +25,7 @@
 			"label" : "Condition",
 			"placeholder" : "For example: age > 12",
 			"optional" : true,
-			"tooltip" : "Example condition rules: <br> gender == 1 <br> type == 3 OR type == 5 <br>age &gt; 12 AND age &lt; 18"
+			"tooltip" : "Example condition rules: <br> gender == 1 <br> (type == 3) or (type == 5) <br>(age &gt; 12) and (age &lt; 18)"
 		},
 		"skippable" : {
 			"type" : "bool"

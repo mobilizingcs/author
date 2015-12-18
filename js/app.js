@@ -609,6 +609,7 @@ $.getJSON("logic.json", function(logic){
 	//upload button
 	$("#create_campaign_button").click(function(e){
 		e.preventDefault();
+		var btn = $(this).attr("disabled", "disabled");
 		$(".campaign_form,.survey_form,.prompt_form").validator("validate");
 		var campaign_name = $("#campaign_name_field").val();
 		var campaign_urn = $("#campaign_urn_field").val();
@@ -629,6 +630,8 @@ $.getJSON("logic.json", function(logic){
 			alert("Success! Campaign was created!")
 			window.location.hash = campaign_urn;
 			window.location.reload()
+		}).always(function(){
+			btn.removeAttr("disabled");
 		});
 	});
 
@@ -638,6 +641,7 @@ $.getJSON("logic.json", function(logic){
         var description = $("#campaign_description").val();
 
 		e.preventDefault();
+		var btn = $(this).attr("disabled", "disabled");
 		oh.campaign.update({
 			running_state : running_state,
 			privacy_state : privacy_state,
@@ -647,6 +651,8 @@ $.getJSON("logic.json", function(logic){
 		}).done(function(){
 			alert("Success! Campaign was updated!")
 			window.location.reload()
+		}).always(function(){
+			btn.removeAttr("disabled");
 		});
 	});
 

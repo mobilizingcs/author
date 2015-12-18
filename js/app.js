@@ -39,23 +39,30 @@ $.getJSON("logic.json", function(logic){
 		var urn = window.location.hash.replace(/^[#]/, "");
 		if(urn.match(/^urn/)){
 			oh.campaign.readall({
-               campaign_urn_list: urn,
-               output_format: "long"
-            }).done(function(data){
+				campaign_urn_list: urn,
+				output_format: "long"
+			}).done(function(data){
 				var campaign = data[urn];
-            	update_urn = urn;
-            	update_name = campaign.name
+				update_urn = urn;
+				update_name = campaign.name
 				xml2form(campaign.xml);
-
-				console.log(campaign)
 				$("#campaign_running").bootstrapSwitch("state", campaign.running_state == "running")
 				$("#campaign_privacy").bootstrapSwitch("state", campaign.privacy_state == "shared")
 				$("#campaign_description").val(campaign.description);
 				$("#campaign_urn_field").val(urn);
 				$("#campaign_name_field").val(campaign.name);
 				$("#class_urn_field option").text(campaign.classes);
-				$("#update_campaign_button").removeClass("hide");
-            });
+
+				oh.user.info().done(function(x){
+					var permissions = x[username].permissions;
+					var roles = campaign.user_roles;
+					if(!permissions.is_admin && ($.inArray("author", roles) < 0) && ($.inArray("supervisor", roles) < 0)){
+						alert("You are not admin or author of this campaign. You won't be able to submit changes.");
+					} else {
+						$("#update_campaign_button").removeClass("hide");
+					}
+				});
+			});
 		} else {
 			//get available classes
 			oh.user.info().done(function(x){

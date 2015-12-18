@@ -66,15 +66,16 @@ $.getJSON("logic.json", function(logic){
 				$.each(Object.keys(classlist).sort(), function(i, name){
 					var urn = classlist[name];
 					$("#class_urn_field").append($("<option/>").val(urn).text(name));
-				})
-			})
-
-			//enable campaign info fields
-			$("#create_campaign_button").removeClass("hide");
-			$(".campaign_info_field").removeAttr("disabled");
-
-			//don't allow editing campaign ID field
-			$("#campaign_urn_field").attr("disabled", "disabled")
+				});
+				var permissions = x[username].permissions;
+				if(!(permissions.admin || permissions.can_create_campaigns)){
+					alert("You do not sufficient privileges to create campaigns. You will not be able to submit.");
+				} else {
+					//enable campaign info fields
+					$("#create_campaign_button").removeClass("hide");
+					$(".campaign_info_field").removeAttr("disabled");
+				}
+			});
 		}
 	});
 

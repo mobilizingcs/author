@@ -1,11 +1,7 @@
-$(function(){
-	$('[data-toggle="tooltip"]').tooltip()
-	if(location.hostname == "lausd.mobilizingcs.org"){
-		$(".hidelausd").hide();
-	}
-});
-
 $.getJSON("logic.json", function(logic){
+
+	//init tooltips
+	$('[data-toggle="tooltip"]').tooltip()
 
 	//globals
 	var oldpop;
@@ -23,6 +19,12 @@ $.getJSON("logic.json", function(logic){
 	//global error handler. In ohmage 200 means unauthenticated
 	oh.callback("error", function(msg, code, req){
 		(code == 200) ? window.location.replace("/#login") : alert("Error!\n" + msg);
+	});
+
+	oh.config.read().done(function(config){
+		if(config.application_name == "mobilize"){
+			$(".nomobilize").hide();
+		}
 	});
 
 	//initiate ohmage client

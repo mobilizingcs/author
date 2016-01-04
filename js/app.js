@@ -59,7 +59,13 @@ $.getJSON("logic.json", function(logic){
 					if(!permissions.is_admin && ($.inArray("author", roles) < 0) && ($.inArray("supervisor", roles) < 0)){
 						alert("You are not admin or author of this campaign. You won't be able to submit changes.");
 					} else {
-						$("#update_campaign_button").removeClass("hide");
+						oh.survey.count(urn).done(function(counts){
+							if(Object.keys(counts).length){
+								alert("This campaign has existing responses. You won't be able to submit changes.");
+							} else {
+								$("#update_campaign_button").removeClass("hide");
+							}
+						});
 					}
 				});
 			});

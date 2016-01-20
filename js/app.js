@@ -247,7 +247,7 @@ $.getJSON("logic.json", function(logic){
 		}
 
 
-		// Other fields get dynamically
+		// other fields get dynamically
 		if(!fields){
 			alert("Skipping unsupported prompt type: " + prompt_type)
 			return;

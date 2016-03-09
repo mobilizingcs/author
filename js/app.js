@@ -37,6 +37,7 @@ $.getJSON("logic.json", function(logic){
 		//init switches
 		$("#campaign_running").bootstrapSwitch({size: "small", onColor: "success", offColor: "danger", onText:"running", offText:"stopped"})
 		$("#campaign_privacy").bootstrapSwitch({size: "small", onColor: "success", offColor: "danger", onText:"allowed", offText:"disabled"})
+		$("#campaign_editable").bootstrapSwitch({size: "small", onColor: "success", offColor: "danger", onText:"allowed", offText:"disabled"})
 
 		var urn = window.location.hash.replace(/^[#]/, "");
 		if(urn.match(/^urn/)){
@@ -50,6 +51,7 @@ $.getJSON("logic.json", function(logic){
 				xml2form(campaign.xml);
 				$("#campaign_running").bootstrapSwitch("state", campaign.running_state == "running")
 				$("#campaign_privacy").bootstrapSwitch("state", campaign.privacy_state == "shared")
+				$("#campaign_editable").bootstrapSwitch("state", campaign.editable === true)
 				$("#campaign_description").val(campaign.description);
 				$("#campaign_urn_field").val(urn);
 				$("#campaign_name_field").val(campaign.name);
@@ -259,7 +261,7 @@ $.getJSON("logic.json", function(logic){
 			if(logic.fields[fieldname].optional) {
 				label = label + " (optional)"
 			}
-			
+
 			var output = Mustache.render(templates[field.type], {
 				field : fieldname,
 				label : label,
@@ -631,11 +633,13 @@ $.getJSON("logic.json", function(logic){
 		var class_urn = $("#class_urn_field").val();
         var running_state = $("#campaign_running")[0].checked ? "running" : "stopped";
         var privacy_state = $("#campaign_privacy")[0].checked ? "shared" : "private";
+        var editable = $("#campaign_editable")[0].checked;
         var description = $("#campaign_description").val();
 
 		oh.campaign.create({
 			running_state : running_state,
 			privacy_state : privacy_state,
+			editable : editable,
 			campaign_urn : campaign_urn,
 			campaign_name : campaign_name,
 			class_urn_list : class_urn,
@@ -653,6 +657,7 @@ $.getJSON("logic.json", function(logic){
 	$("#update_campaign_button").click(function(e){
         var running_state = $("#campaign_running")[0].checked ? "running" : "stopped";
         var privacy_state = $("#campaign_privacy")[0].checked ? "shared" : "private";
+        var editable = $("#campaign_editable")[0].checked;
         var description = $("#campaign_description").val();
 
 		e.preventDefault();
@@ -660,6 +665,7 @@ $.getJSON("logic.json", function(logic){
 		oh.campaign.update({
 			running_state : running_state,
 			privacy_state : privacy_state,
+			editable : editable,
 			campaign_urn : update_urn,
 			description : description,
 			xml : fixxml(writexml(), update_name, update_urn)

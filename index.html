@@ -16,9 +16,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
 	<script src="js/validator.min.js"></script>
 
-    <!-- Switch widget -->
-    <script type="text/javascript" src="js/bootstrap-switch.min.js"></script>
-    <link rel="stylesheet" href="css/bootstrap-switch.min.css">
+	<!-- Switch widget -->
+	<script type="text/javascript" src="js/bootstrap-switch.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap-switch.min.css">
 
 	<!--
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
@@ -82,17 +82,26 @@
 
 							<div class="row">
 								<div class="form-group col-xs-6" data-toggle="tooltip" data-placement="top" title="Users can only submit data to 'running' campaigns.">
-				                    <label class="control-label">Campaign Status</label>
-				                    <br />
-			                        <input id="campaign_running" type="checkbox">
+									<label class="control-label">Campaign Status</label>
+									<br />
+									<input id="campaign_running" type="checkbox">
 								</div>
+							</div>
+
+							<div class="row">
 
 								<div class="form-group col-xs-6" data-toggle="tooltip" data-placement="top" title="If allowed, users can see other users' shared data.">
-				                    <label class="control-label">Data Sharing</label>
-				                    <br />
-			                        <input id="campaign_privacy" type="checkbox" checked>
-								</div>	
-							</div>					
+									<label class="control-label">Data Sharing</label>
+									<br />
+									<input id="campaign_privacy" type="checkbox" checked>
+								</div>
+
+								<div class="form-group col-xs-6" data-toggle="tooltip" data-placement="top" title="Allow for survey responses to be edited.">
+									<label class="control-label">Editable Responses</label>
+									<br />
+									<input id="campaign_editable" type="checkbox">
+								</div>
+							</div>
 
 							<button type="button" id="new_survey_button" class="btn btn-sm btn-primary pull-right">
 								<span class="glyphicon glyphicon-plus"></span> Add Survey
@@ -141,7 +150,7 @@
 
 						<a target="_blank" href="#" type="button" id="update_campaign_button" class="hide btn btn-primary pull-right btn-sm">
 							<span class="glyphicon glyphicon-upload"></span> Update Campaign
-						</a>	
+						</a>
 
 					</div>
 				</div>
@@ -151,7 +160,7 @@
 						<div class="input-group-addon"><b>ID</b></div>
 						<input type="text" class="form-control" id="campaign_urn_field" placeholder="A unique ID" disabled>
 					</div>
-				</div>						
+				</div>
 
 				<div class="checkbox syntax_highlight_button_checkbox">
 					<label><input type="checkbox" id="syntax_highlight_button"> <b><i>Color XML</i></b></label>
